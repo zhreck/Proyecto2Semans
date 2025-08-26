@@ -20,6 +20,7 @@ from taks import views
 
 
 urlpatterns = [
-    path('', views.helloworld),
+    path('', views.inicio),
+    path('signup/', views.helloworld),
     path('admin/', admin.site.urls),
 ]
