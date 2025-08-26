@@ -20,6 +20,6 @@ from storage import views
 
 urlpatterns = [
     path('', views.inicio, name='inicio'),
-    path('singup/', views.helloworld, name='singup'),
+   
     path('admin/', admin.site.urls),
 ]
