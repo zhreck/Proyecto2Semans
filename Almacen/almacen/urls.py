@@ -1,5 +1,5 @@
 """
-URL configuration for Almacen project.
+URL configuration for almacen project.
 
 The `urlpatterns` list routes URLs to views. For more information please see:
     https://docs.djangoproject.com/en/5.2/topics/http/urls/
@@ -16,11 +16,10 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from taks import views 
-
+from storage import views
 
 urlpatterns = [
-    path('', views.inicio),
-    path('signup/', views.helloworld),
+    path('', views.inicio, name='inicio'),
+    path('singup/', views.helloworld, name='singup'),
     path('admin/', admin.site.urls),
 ]
