@@ -19,7 +19,12 @@ from django.urls import path
 from storage import views
 
 urlpatterns = [
-    path('', views.inicio, name='inicio'),
-   
+    path('inicio/', views.inicio, name='Inicio'),
+    path('prueba/',views.prueba, name='prueba'),
+    path('acceso/',views.acceso, name="acceso"),
+    path('inicio2/',views.inicio2, name='inicio2'),
+    path('inicio3/',views.inicio3, name='inicio3'),
+    path('productos/', views.productos, name='Producto'),
+    path('ayuda/',views.ayuda, name='Ayuda'),
     path('admin/', admin.site.urls),
 ]
