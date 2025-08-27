@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
     <head>
@@ -5,7 +7,8 @@
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Acceso - BodegasChile</title>
             <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-            <link rel="stylesheet" href="../css/acceso.css">
+             <title>Página de Inicio</title>
+        <link rel="stylesheet" href="{% static 'css/acceso.css' %}">
     </head>
     <body>
         <!-- Header -->
@@ -17,10 +20,10 @@
                 </a>
                 
                 <ul class="nav-menu" id="navMenu">
-                    <li><a href="index.html">Inicio</a></li>
-                    <li><a href="productos.html">Productos</a></li>
-                    <li><a href="acceso.html" class="active">Acceso</a></li>
-                    <li><a href="ayuda.html">Ayuda</a></li>
+                    <li><a href="{%url 'inicio'%}">Inicio</a></li>
+                    <li><a href="{%url 'productos' %}">Productos</a></li>
+                    <li><a href="{%url 'acceso' %}" class="active">Acceso</a></li>
+                    <li><a href="{%url 'ayuda' %}">Ayuda</a></li>
                 </ul>
                 
                 <button class="mobile-menu-toggle" id="mobileMenuToggle">
@@ -38,9 +41,11 @@
                         <button class="tab-button active" id="loginTab" onclick="switchTab('login')">
                             <i class="fas fa-sign-in-alt"></i> Iniciar Sesión
                         </button>
-                        <button class="tab-button" id="registerTab" onclick="switchTab('register')">
+                        <button class="tab-button" onclick=window.location.href='{% url 'registro' %}'>
                             <i class="fas fa-user-plus"></i> Registrarse
                         </button>
+
+
                     </div>
 
                     <!-- Login Section -->
@@ -264,5 +269,4 @@
                 </div>
             </div>
         </main>
-     <script src="../js/acceso.js"></script>
 </body>

@@ -1,691 +1,201 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html lang="es">
 
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>BodegasChile - Encuentra tu bodega ideal</title>
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        :root {
-            --azul: #0367A6;
-            --beige-oscuro: #A68160;
-            --beige-claro: #D9B596;
-            --rojo-fuerte: #BF2E21;
-            --vino-oscuro: #590202;
-            --blanco: #ffffff;
-            --gris-claro: #f8f9fa;
-            --gris-oscuro: #333333;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: var(--gris-oscuro);
-        }
-
-        /* Header */
-        .header {
-            background: var(--blanco);
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: fixed;
-            top: 0;
-            width: 100%;
-            z-index: 1000;
-        }
-
-        .nav-container {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1rem 2rem;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: var(--azul);
-            text-decoration: none;
-        }
-
-        .logo i {
-            margin-right: 0.5rem;
-            color: var(--rojo-fuerte);
-        }
-
-        .nav-menu {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .nav-menu a {
-            text-decoration: none;
-            color: var(--gris-oscuro);
-            font-weight: 500;
-            transition: color 0.3s ease;
-        }
-
-        .nav-menu a:hover {
-            color: var(--azul);
-        }
-
-        .mobile-menu-toggle {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--azul);
-            cursor: pointer;
-        }
-
-        /* Hero Section */
-        .hero {
-            background: linear-gradient(rgba(3, 103, 166, 0.8), rgba(89, 2, 2, 0.8)),
-                url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23A68160" width="1200" height="600"/><rect fill="%23D9B596" x="0" y="200" width="400" height="200"/><rect fill="%230367A6" x="400" y="150" width="400" height="250"/><rect fill="%23BF2E21" x="800" y="180" width="400" height="220"/></svg>');
-            background-size: cover;
-            background-position: center;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            color: var(--blanco);
-            margin-top: 80px;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            padding: 0 2rem;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
-        }
-
-        .hero p {
-            font-size: 1.4rem;
-            margin-bottom: 2rem;
-            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: var(--rojo-fuerte);
-            color: var(--blanco);
-            padding: 1rem 2rem;
-            font-size: 1.2rem;
-            text-decoration: none;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        }
-
-        .cta-button:hover {
-            background: var(--vino-oscuro);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-        }
-
-        /* Search Section */
-        .search-section {
-            background: var(--gris-claro);
-            padding: 4rem 2rem;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .search-container {
-            background: var(--blanco);
-            border-radius: 15px;
-            padding: 2rem;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        .search-form {
-            display: flex;
-            gap: 1rem;
-            flex-wrap: wrap;
-            align-items: center;
-        }
-
-        .search-input {
-            flex: 1;
-            padding: 1rem;
-            border: 2px solid var(--beige-claro);
-            border-radius: 10px;
-            font-size: 1rem;
-            min-width: 200px;
-        }
-
-        .search-input:focus {
-            outline: none;
-            border-color: var(--azul);
-        }
-
-        .search-button {
-            background: var(--azul);
-            color: var(--blanco);
-            border: none;
-            padding: 1rem 2rem;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: background 0.3s ease;
-        }
-
-        .search-button:hover {
-            background: var(--vino-oscuro);
-        }
-
-        /* Categories Section */
-        .categories-section {
-            padding: 4rem 2rem;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            color: var(--azul);
-            margin-bottom: 3rem;
-        }
-
-        .categories-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .category-card {
-            background: var(--blanco);
-            border-radius: 15px;
-            padding: 2rem;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-
-        .category-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .category-card i {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: var(--beige-oscuro);
-        }
-
-        .category-card h3 {
-            font-size: 1.5rem;
-            color: var(--azul);
-            margin-bottom: 1rem;
-        }
-
-        .category-card p {
-            color: var(--gris-oscuro);
-            line-height: 1.6;
-        }
-
-        /* Benefits Section */
-        .benefits-section {
-            background: var(--beige-claro);
-            padding: 4rem 2rem;
-        }
-
-        .benefits-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 2fr));
-            gap: 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .benefit-item {
-            text-align: center;
-            padding: 1.0rem;
-        }
-
-        .benefit-item i {
-            font-size: 2.5rem;
-            color: var(--rojo-fuerte);
-            margin-bottom: 1rem;
-        }
-
-        .benefit-item h4 {
-            font-size: 1.3rem;
-            color: var(--azul);
-            margin-bottom: 1rem;
-        }
-
-        .benefit-item p {
-            color: var(--gris-oscuro);
-        }
-
-        /* Testimonials Section */
-        .testimonials-section {
-            padding: 4rem 2rem;
-        }
-
-        .testimonial-grip {
-            display: grid;
-            grid-template-columns: auto auto;
-            gap: 1rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .testimonial {
-            background: var(--blanco);
-            border-radius: 15px;
-            padding: 2rem;
-            max-width: 600px;
-            margin: 0 auto;
-            text-align: center;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .testimonial-text {
-            font-size: 1.2rem;
-            font-style: italic;
-            color: var(--gris-oscuro);
-            margin-bottom: 1.5rem;
-        }
-
-        .testimonial-author {
-            font-weight: bold;
-            color: var(--azul);
-        }
-
-        /* Footer */
-        .footer {
-            background: var(--vino-oscuro);
-            color: var(--blanco);
-            padding: 3rem 2rem 1rem;
-        }
-
-        .footer-content {
-            max-width: 1200px;
-            margin: 0 auto;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer-section h4 {
-            color: var(--beige-claro);
-            margin-bottom: 1rem;
-        }
-
-        .footer-section ul {
-            list-style: none;
-        }
-
-        .footer-section ul li {
-            margin-bottom: 0.5rem;
-        }
-
-        .footer-section ul li a {
-            color: var(--blanco);
-            text-decoration: none;
-            transition: color 0.3s ease;
-        }
-
-        .footer-section ul li a:hover {
-            color: var(--beige-claro);
-        }
-
-        .footer-bottom {
-            text-align: center;
-            padding-top: 2rem;
-            border-top: 1px solid var(--beige-oscuro);
-            color: var(--beige-claro);
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
-            .nav-menu {
-                display: none;
-                position: absolute;
-                top: 100%;
-                left: 0;
-                width: 100%;
-                background: var(--blanco);
-                flex-direction: column;
-                padding: 1rem;
-                box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            }
-
-            .nav-menu.active {
-                display: flex;
-            }
-
-            .mobile-menu-toggle {
-                display: block;
-            }
-
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-
-            .hero p {
-                font-size: 1.2rem;
-            }
-
-            .search-form {
-                flex-direction: column;
-            }
-
-            .search-input {
-                min-width: auto;
-                width: 100%;
-            }
-
-            .nav-container {
-                padding: 1rem;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-
-            .section-title {
-                font-size: 2rem;
-            }
-
-            .categories-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-    </style>
-</head>
-
-<body>
-    <!-- Header -->
-    <header class="header">
-        <nav class="nav-container">
-            <a href="#" class="logo">
-                <i class="fas fa-warehouse"></i>
-                BodegasChile
-            </a>
-
-            <ul class="nav-menu" id="navMenu">
-                <li><a href="productos.html">Productos</a></li>
-                <li><a href="acceso.html">Acceso</a></li>
-                <li><a href="ayuda.html">Ayuda</a></li>
-            </ul>
-
-            <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                <i class="fas fa-bars"></i>
-            </button>
-        </nav>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Encuentra tu bodega ideal en todo Chile</h1>
-            <p>La plataforma líder para venta y arriendo de bodegas industriales y comerciales</p>
-            <a href="productos.html" class="cta-button">
-                <i class="fas fa-search"></i> Explorar Bodegas
-            </a>
-        </div>
-    </section>
-
-    <!-- Search Section -->
-    <section class="search-section">
-        <div class="container">
-            <div class="search-container">
-                <h2 style="text-align: center; color: var(--azul); margin-bottom: 1.5rem;">Búsqueda Rápida</h2>
-                <form class="search-form" id="quickSearchForm">
-                    <input type="text" class="search-input"
-                        placeholder="Buscar por ubicación, tamaño o características..." id="quickSearch">
-                    <button type="submit" class="search-button">
-                        <i class="fas fa-search"></i> Buscar
-                    </button>
-                </form>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BodegasChile - Encuentra tu bodega ideal</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/inicio3.css' %}">
+    </head>
+
+    <body>
+        <!-- Header -->
+        <header class="header">
+            <nav class="nav-container">
+                <a href="#" class="logo">
+                    <i class="fas fa-warehouse"></i>
+                    BodegasChile
+                </a>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="{% url 'productos' %}">Productos</a></li>
+                    <li><a href="{% url 'acceso' %}">Acceso</a></li>
+                    <li><a href="{% url 'ayuda' %}">Ayuda</a></li>
+                </ul>
+
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Encuentra tu bodega ideal en todo Chile</h1>
+                <p>La plataforma líder para venta y arriendo de bodegas industriales y comerciales</p>
+                <a href="{% url 'productos' %}" class="cta-button">
+                    <i class="fas fa-search"></i> Explorar Bodegas
+                </a>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Categories Section -->
-    <section class="categories-section">
-        <div class="container">
-            <h2 class="section-title">Categorías Destacadas</h2>
-            <div class="categories-grid">
-                <div class="category-card" onclick="filterByCategory('pequeña')">
-                    <i class="fas fa-cube"></i>
-                    <h3>Bodegas Pequeñas</h3>
-                    <p>Ideales para emprendimientos y pequeñas empresas. Desde 50 hasta 200 m²</p>
-                </div>
-
-                <div class="category-card" onclick="filterByCategory('mediana')">
-                    <i class="fas fa-boxes"></i>
-                    <h3>Bodegas Medianas</h3>
-                    <p>Perfecto para empresas en crecimiento. Desde 200 hasta 500 m²</p>
-                </div>
-
-                <div class="category-card" onclick="filterByCategory('grande')">
-                    <i class="fas fa-industry"></i>
-                    <h3>Bodegas Grandes</h3>
-                    <p>Para operaciones industriales y logística. Más de 500 m²</p>
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="container">
+                <div class="search-container">
+                    <h2 style="text-align: center; color: var(--azul); margin-bottom: 1.5rem;">Búsqueda Rápida</h2>
+                    <form class="search-form" id="quickSearchForm">
+                        <input type="text" class="search-input"
+                            placeholder="Buscar por ubicación, tamaño o características..." id="quickSearch">
+                        <button type="submit" class="search-button">
+                            <i class="fas fa-search"></i> Buscar
+                        </button>
+                    </form>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Benefits Section -->
-    <section class="benefits-section">
-        <div class="container">
-            <h2 class="section-title" style="color: var(--vino-oscuro);">¿Por qué elegir BodegasChile?</h2>
-            <div class="benefits-grid">
-                <div class="benefit-item">
-                    <i class="fas fa-map-marked-alt"></i>
-                    <h4>Cobertura Nacional</h4>
-                    <p>Bodegas disponibles en todas las regiones de Chile</p>
-                </div>
+        <!-- Categories Section -->
+        <section class="categories-section">
+            <div class="container">
+                <h2 class="section-title">Categorías Destacadas</h2>
+                <div class="categories-grid">
+                    <div class="category-card" onclick="filterByCategory('pequeña')">
+                        <i class="fas fa-cube"></i>
+                        <h3>Bodegas Pequeñas</h3>
+                        <p>Ideales para emprendimientos y pequeñas empresas. Desde 50 hasta 200 m²</p>
+                    </div>
 
-                <div class="benefit-item">
-                    <i class="fas fa-shield-alt"></i>
-                    <h4>Propiedades Verificadas</h4>
-                    <p>Todas nuestras bodegas son inspeccionadas y verificadas</p>
-                </div>
+                    <div class="category-card" onclick="filterByCategory('mediana')">
+                        <i class="fas fa-boxes"></i>
+                        <h3>Bodegas Medianas</h3>
+                        <p>Perfecto para empresas en crecimiento. Desde 200 hasta 500 m²</p>
+                    </div>
 
-                <div class="benefit-item">
-                    <i class="fas fa-handshake"></i>
-                    <h4>Asesoría Especializada</h4>
-                    <p>Expertos en bienes raíces industriales te acompañan</p>
-                </div>
-
-                <div class="benefit-item">
-                    <i class="fas fa-clock"></i>
-                    <h4>Proceso Rápido</h4>
-                    <p>Encuentra y arrienda tu bodega en tiempo record</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials Section -->
-    <section class="testimonials-section">
-        <div class="container">
-            <h2 class=" section-title">Lo que dicen nuestros clientes</h2>
-            <div class="testimonial-grip">
-                <div class="testimonial">
-                    <p class="testimonial-text">
-                        "Encontré la bodega perfecta para mi empresa en solo una semana. La plataforma es muy fácil de
-                        usar
-                        y el servicio al cliente es excepcional."
-                    </p>
-                    <div class="testimonial-author">
-                        - María González, Distribuidora Los Andes
+                    <div class="category-card" onclick="filterByCategory('grande')">
+                        <i class="fas fa-industry"></i>
+                        <h3>Bodegas Grandes</h3>
+                        <p>Para operaciones industriales y logística. Más de 500 m²</p>
                     </div>
                 </div>
+            </div>
+        </section>
 
-                <div class="testimonial">
-                    <p class="testimonial-text">
-                        "Encontré la bodega perfecta para mi empresa en solo una semana. La plataforma es muy fácil de
-                        usar
-                        y el servicio al cliente es excepcional."
-                    </p>
-                    <div class="testimonial-author">
-                        - María González, Distribuidora Los Andes
+        <!-- Benefits Section -->
+        <section class="benefits-section">
+            <div class="container">
+                <h2 class="section-title" style="color: var(--vino-oscuro);">¿Por qué elegir BodegasChile?</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <h4>Cobertura Nacional</h4>
+                        <p>Bodegas disponibles en todas las regiones de Chile</p>
+                    </div>
+
+                    <div class="benefit-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>Propiedades Verificadas</h4>
+                        <p>Todas nuestras bodegas son inspeccionadas y verificadas</p>
+                    </div>
+
+                    <div class="benefit-item">
+                        <i class="fas fa-handshake"></i>
+                        <h4>Asesoría Especializada</h4>
+                        <p>Expertos en bienes raíces industriales te acompañan</p>
+                    </div>
+
+                    <div class="benefit-item">
+                        <i class="fas fa-clock"></i>
+                        <h4>Proceso Rápido</h4>
+                        <p>Encuentra y arrienda tu bodega en tiempo record</p>
                     </div>
                 </div>
-
             </div>
-        </div>
-    </section>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials-section">
+            <div class="container">
+                <h2 class=" section-title">Lo que dicen nuestros clientes</h2>
+                <div class="testimonial-grip">
+                    <div class="testimonial">
+                        <p class="testimonial-text">
+                            "Encontré la bodega perfecta para mi empresa en solo una semana. La plataforma es muy fácil de
+                            usar
+                            y el servicio al cliente es excepcional."
+                        </p>
+                        <div class="testimonial-author">
+                            - María González, Distribuidora Los Andes
+                        </div>
+                    </div>
+
+                    <div class="testimonial">
+                        <p class="testimonial-text">
+                            "Encontré la bodega perfecta para mi empresa en solo una semana. La plataforma es muy fácil de
+                            usar
+                            y el servicio al cliente es excepcional."
+                        </p>
+                        <div class="testimonial-author">
+                            - María González, Distribuidora Los Andes
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
 
 
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="footer-content">
-            <div class="footer-section">
-                <h4>BodegasChile</h4>
-                <ul>
-                    <li><a href="#">Acerca de nosotros</a></li>
-                    <li><a href="#">Términos y condiciones</a></li>
-                    <li><a href="#">Política de privacidad</a></li>
-                </ul>
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>BodegasChile</h4>
+                    <ul>
+                        <li><a href="#">Acerca de nosotros</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                        <li><a href="#">Política de privacidad</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li><a href="#">Venta de bodegas</a></li>
+                        <li><a href="#">Arriendo de bodegas</a></li>
+                        <li><a href="#">Asesoría inmobiliaria</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +56 2 2345 6789</li>
+                        <li><i class="fas fa-envelope"></i> contacto@bodegaschile.cl</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Santiago, Chile</li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Síguenos</h4>
+                    <ul>
+                        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                    </ul>
+                </div>
             </div>
 
-            <div class="footer-section">
-                <h4>Servicios</h4>
-                <ul>
-                    <li><a href="#">Venta de bodegas</a></li>
-                    <li><a href="#">Arriendo de bodegas</a></li>
-                    <li><a href="#">Asesoría inmobiliaria</a></li>
-                </ul>
+            <div class="footer-bottom">
+                <p>&copy; 2025 BodegasChile. Todos los derechos reservados.</p>
             </div>
+        </footer>
 
-            <div class="footer-section">
-                <h4>Contacto</h4>
-                <ul>
-                    <li><i class="fas fa-phone"></i> +56 2 2345 6789</li>
-                    <li><i class="fas fa-envelope"></i> contacto@bodegaschile.cl</li>
-                    <li><i class="fas fa-map-marker-alt"></i> Santiago, Chile</li>
-                </ul>
-            </div>
-
-            <div class="footer-section">
-                <h4>Síguenos</h4>
-                <ul>
-                    <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
-                    <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
-                    <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="footer-bottom">
-            <p>&copy; 2025 BodegasChile. Todos los derechos reservados.</p>
-        </div>
-    </footer>
-
-    <script>
-        // Mobile menu toggle
-        document.getElementById('mobileMenuToggle').addEventListener('click', function () {
-            const navMenu = document.getElementById('navMenu');
-            navMenu.classList.toggle('active');
-        });
-
-        // Quick search form
-        document.getElementById('quickSearchForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            const searchTerm = document.getElementById('quickSearch').value;
-            if (searchTerm.trim()) {
-                // Redirect to products page with search parameter
-                window.location.href = `productos.html?search=${encodeURIComponent(searchTerm)}`;
-            }
-        });
-
-        // Category filtering
-        function filterByCategory(category) {
-            // Redirect to products page with category filter
-            window.location.href = `productos.html?category=${category}`;
-        }
-
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Add scroll effect to header
-        window.addEventListener('scroll', function () {
-            const header = document.querySelector('.header');
-            if (window.scrollY > 100) {
-                header.style.backgroundColor = 'rgba(255, 255, 255, 0.95)';
-                header.style.backdropFilter = 'blur(10px)';
-            } else {
-                header.style.backgroundColor = 'var(--blanco)';
-                header.style.backdropFilter = 'none';
-            }
-        });
-
-        // Animation on scroll
-        function animateOnScroll() {
-            const elements = document.querySelectorAll('.category-card, .benefit-item, .testimonial');
-
-            elements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const windowHeight = window.innerHeight;
-
-                if (elementTop < windowHeight * 0.8) {
-                    element.style.opacity = '1';
-                    element.style.transform = 'translateY(0)';
-                }
-            });
-        }
-
-        // Initialize animations
-        document.addEventListener('DOMContentLoaded', function () {
-            const elements = document.querySelectorAll('.category-card, .benefit-item, .testimonial');
-            elements.forEach(element => {
-                element.style.opacity = '0';
-                element.style.transform = 'translateY(30px)';
-                element.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            });
-
-            window.addEventListener('scroll', animateOnScroll);
-            animateOnScroll(); // Initial check
-        });
-    </script>
-</body>
+        <script src="{% static 'js/inicio3.js' %}"></script>
+    </body>
 
 </html>
