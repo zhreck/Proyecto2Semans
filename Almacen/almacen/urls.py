@@ -1,8 +1,13 @@
 from django.contrib import admin
 from django.urls import path
-from storage import views  # importa tus vistas desde la app "storage"
+ # importa tus vistas desde la app "storage"
 from django.conf import settings
 from django.conf.urls.static import static
+from django.urls import include
+from storage import views as views
+from usuarios import views as user_views
+
+
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -14,7 +19,9 @@ urlpatterns = [
     path('inicio3/', views.inicio3, name='inicio3'),
     path('productos/', views.productos, name='productos'),
     path('ayuda/', views.ayuda, name='ayuda'),
-    path('registro/',views.registro, name='registro')
+    path('registro/',views.registro, name='registro'),
+    
+    path('usuarios/', include('usuarios.urls')),
 ]
 
 # Para servir archivos estáticos y media en desarrollo
