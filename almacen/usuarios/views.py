@@ -16,12 +16,12 @@ def registrar_usuario(request):
             return redirect('listar_usuarios')
     else:
         form = UsuarioForm()
-    return render(request, 'usuarios/registrar.html', {'form': form})
+    return render(request, 'Crud/registrar.html', {'form': form})
 
 # Listar usuarios
 def listar_usuarios(request):
     usuarios = Usuario.objects.all()
-    return render(request, 'usuarios/listar.html', {'usuarios': usuarios})
+    return render(request, 'Crud/listar.html', {'usuarios': usuarios})
 
 # Editar usuario
 def editar_usuario(request, id):
@@ -33,10 +33,13 @@ def editar_usuario(request, id):
             return redirect('listar_usuarios')
     else:
         form = UsuarioForm(instance=usuario)
-    return render(request, 'usuarios/editar.html', {'form': form})
+    return render(request, 'Crud/editar.html', {'form': form})
 
 # Eliminar usuario
 def eliminar_usuario(request, id):
     usuario = get_object_or_404(Usuario, id=id)
     usuario.delete()
     return redirect('listar_usuarios')
+
+def inicio(request):
+    return render(request, 'Crud/inicioCrud.html')

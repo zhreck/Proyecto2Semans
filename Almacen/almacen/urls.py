@@ -20,7 +20,7 @@ urlpatterns = [
     path('productos/', views.productos, name='productos'),
     path('ayuda/', views.ayuda, name='ayuda'),
     path('registro/',views.registro, name='registro'),
-    
+
     path('usuarios/', include('usuarios.urls')),
 ]
 
