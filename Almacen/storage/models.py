@@ -4,7 +4,7 @@ from django.db import models
 
 class Archivo(models.Model):
     nombre = models.CharField(max_length=255)
-    archivo = models.FileField(upload_to='storage/')
+    archivo = models.FileField(upload_to='fotos/')   # <-- aquí el cambio
     creado = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -5,6 +5,7 @@ from rest_framework import viewsets
 from .models import Archivo
 from .serializers import ArchivoSerializer
 
+
 def inicio(request):
     return render(request, 'html/inicio.html')
 
@@ -26,9 +27,10 @@ def ayuda(request):
 def registro(request):
     return render(request, 'html/registro.html')
 
-
-
-
 class ArchivoViewSet(viewsets.ModelViewSet):
     queryset = Archivo.objects.all()
     serializer_class = ArchivoSerializer
+    
+def inicio(request):
+    fotos = Archivo.objects.order_by("-creado")[:12]  # ajusta la cantidad a gusto
+    return render(request, "html/inicio.html", {"fotos": fotos})

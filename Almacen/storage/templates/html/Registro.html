@@ -3,296 +3,54 @@
 <!DOCTYPE html>
 <html lang="es">
     <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Acceso - BodegasChile</title>
-            <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-             <title>Página de Inicio</title>
-        <link rel="stylesheet" href="{% static 'css/acceso.css' %}">
+    <meta charset="UTF-8">
+    <title>Registro</title>
+    <link rel="stylesheet" href="{% static 'css/registro.css' %}">
     </head>
     <body>
-        <!-- Header -->
-        <header class="header">
-            <nav class="nav-container">
-                <a href="index.html" class="logo">
-                    <i class="fas fa-warehouse"></i>
-                    BodegasChile
-                </a>
-                
-                <ul class="nav-menu" id="navMenu">
-                    <li><a href="{%url 'inicio'%}">Inicio</a></li>
-                    <li><a href="{%url 'productos' %}">Productos</a></li>
-                    <li><a href="{%url 'acceso' %}" class="active">Acceso</a></li>
-                    <li><a href="{%url 'ayuda' %}">Ayuda</a></li>
-                </ul>
-                
-                <button class="mobile-menu-toggle" id="mobileMenuToggle">
-                    <i class="fas fa-bars"></i>
-                </button>
-            </nav>
-        </header>
+  <header class="header">
+    <div class="nav-container">
+      <div class="logo">BodegasChile</div>
+      <nav class="nav-buttons">
+        <a href="{% url 'inicio' %}" class="nav-btn">Inicio</a>
+        <a href="{% url 'acceso' %}" class="nav-btn">Acceder</a>
+        <a href="{% url 'ayuda' %}" class="nav-btn">Ayuda</a>
+      </nav>
+    </div>
+  </header>
 
-    <!-- Main Content -->
-        <main class="main-content">
-            <div class="container">
-                <div class="access-layout">
-                    <!-- Tab Navigation -->
-                    <div class="tab-navigation">
-                        <button class="tab-button active" id="loginTab" onclick="switchTab('login')">
-                            <i class="fas fa-user-plus"></i> Registrarse
-                        </button>
-                        <button class="tab-button" onclick=window.location.href='{% url 'acceso' %}'>
-                            <i class="fas fa-sign-in-alt "></i> Iniciar Sesión
-                        </button>
+  <main class="main-content">
+    <h1 class="section-title">Crear Cuenta</h1>
 
+    <form method="post" class="form">
+      {% csrf_token %}
+      {{ form.as_p }}
 
-                    </div>
+      <button type="submit" class="btn">Registrarse</button>
+    </form>
 
-                    <!-- Login Section -->
-                    <section class="access-section active fade-in" id="loginSection">
-                        <h2 class="section-title">Registro</h2>
-                        <p class="section-subtitle">Registra tu cuenta para explorar bodegas</p>
+    {% if form.errors %}
+      <div class="form-errors">
+        <p>Corrige los siguientes errores:</p>
+        <ul>
+          {% for field in form %}
+            {% for error in field.errors %}
+              <li><strong>{{ field.label }}:</strong> {{ error }}</li>
+            {% endfor %}
+          {% endfor %}
+          {% for error in form.non_field_errors %}
+            <li>{{ error }}</li>
+          {% endfor %}
+        </ul>
+      </div>
+    {% endif %}
+  </main>
 
-                        <div class="alert alert-error" id="loginAlert"></div>
-                        <div class="alert alert-success" id="loginSuccess"></div>
+  <footer class="footer">
+    <p>&copy; 2024 BodegasChile. Todos los derechos reservados.</p>
+  </footer>
+    </body>
+    
 
-                        <form id="loginForm" novalidate>
-                            <!-- nombre -->
-                            <div class="form-group">
-                                <label class="form-label" for="NombreR">Nombre y Apellido</label>
-                                <div class="input-icon">
-                                    <input 
-                                        type="nombre" 
-                                        id="nombreR" 
-                                        class="form-input" 
-                                        placeholder="Ejemplo: Alfredo Gutierrez"
-                                        required
-                                    >
-                                    <i class="fas fa-user"></i>
-                                </div>
-                                <div class="form-error" id="NombreError"></div>
-                            </div>
-
-                            <!-- Correo -->
-                            <div class="form-group">
-                                <label class="form-label" for="loginEmail">Correo Electrónico</label>
-                                <div class="input-icon">
-                                    <input 
-                                        type="email" 
-                                        id="loginEmail" 
-                                        class="form-input" 
-                                        placeholder="tu@email.com"
-                                        required
-                                    >
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                                <div class="form-error" id="loginEmailError"></div>
-                            </div>
-
-                            <!-- Contrasena-->
-                            <div class="form-group">
-                                <label class="form-label" for="loginPassword">Contraseña</label>
-                                <div class="input-icon">
-                                    <input 
-                                        type="password" 
-                                        id="loginPassword" 
-                                        class="form-input" 
-                                        placeholder="Tu contraseña"
-                                        required
-                                    >
-                                    <i class="fas fa-lock"></i>
-                                    <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')">
-                                        <i class="fas fa-eye" id="loginPasswordToggle"></i>
-                                    </button>
-                                </div>
-                                <div class="form-error" id="loginPasswordError"></div>
-                            </div>
-
-                            <!--confimar contrasena-->
-                            <div class="form-group">
-                                <label class="form-label" for="loginPassword1">Repetir Contraseña </label>
-                                <div class="input-icon">
-                                    <input 
-                                        type="password" 
-                                        id="loginPassword" 
-                                        class="form-input" 
-                                        placeholder="Repetir la contraseña"
-                                        required
-                                    >
-                                    <i class="fas fa-lock"></i>
-                                    <button type="button" class="password-toggle" onclick="togglePassword('loginPassword')">
-                                        <i class="fas fa-eye" id="loginPasswordToggle"></i>
-                                    </button>
-                                </div>
-                                <div class="form-error" id="loginPasswordError"></div>
-                            </div>
-                            <!-- check box de recordar dispositivo -->
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="rememberMe" class="checkbox-input">
-                                <label for="rememberMe" class="checkbox-label">
-                                    Recordarme en este dispositivo
-                                </label>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary" id="loginButton">
-                                <i class="fas fa-sign-in-alt"></i> Registrarse
-                            </button>
-                        </form>
-
-            
-                        <div class="features-list">
-                            <h4>Al Registrarse podrás:</h4>
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Guardar tus bodegas favoritas</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Recibir alertas de nuevas propiedades</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Contactar directamente con propietarios</span>
-                            </div>
-                            <div class="feature-item">
-                                <i class="fas fa-check-circle"></i>
-                                <span>Acceder a información detallada</span>
-                            </div>
-                        </div>
-                    </section>
-
-                    <!-- Register Section -->
-                    <section class="access-section fade-in" id="registerSection">
-                        <h2 class="section-title">Crear Cuenta</h2>
-                        <p class="section-subtitle">Únete y encuentra tu bodega ideal</p>
-
-                        <div class="alert alert-error" id="registerAlert"></div>
-                        <div class="alert alert-success" id="registerSuccess"></div>
-
-                        <form id="registerForm" novalidate>
-                            <div class="form-group">
-                                <label class="form-label" for="registerName">Nombre Completo</label>
-                                <div class="input-icon">
-                                    <input 
-                                        type="text" 
-                                        id="registerName" 
-                                        class="form-input" 
-                                        placeholder="Tu nombre completo"
-                                        required
-                                    >
-                                    <i class="fas fa-user"></i>
-                                </div>
-                                <div class="form-error" id="registerNameError"></div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label" for="registerEmail">Correo Electrónico</label>
-                                <div class="input-icon">
-                                    <input 
-                                        type="email" 
-                                        id="registerEmail" 
-                                        class="form-input" 
-                                        placeholder="tu@email.com"
-                                        required
-                                    >
-                                    <i class="fas fa-envelope"></i>
-                                </div>
-                                <div class="form-error" id="registerEmailError"></div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label" for="registerPhone">Teléfono (Opcional)</label>
-                                <div class="input-icon">
-                                    <input 
-                                        type="tel" 
-                                        id="registerPhone" 
-                                        class="form-input" 
-                                        placeholder="+56 9 1234 5678"
-                                    >
-                                    <i class="fas fa-phone"></i>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label" for="registerCompany">Empresa (Opcional)</label>
-                                <div class="input-icon">
-                                    <input 
-                                        type="text" 
-                                        id="registerCompany" 
-                                        class="form-input" 
-                                        placeholder="Nombre de tu empresa"
-                                    >
-                                    <i class="fas fa-building"></i>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label" for="registerPassword">Contraseña</label>
-                                <div class="input-icon">
-                                    <input 
-                                        type="password" 
-                                        id="registerPassword" 
-                                        class="form-input" 
-                                        placeholder="Mínimo 8 caracteres"
-                                        required
-                                    >
-                                    <i class="fas fa-lock"></i>
-                                    <button type="button" class="password-toggle" onclick="togglePassword('registerPassword')">
-                                        <i class="fas fa-eye" id="registerPasswordToggle"></i>
-                                    </button>
-                                </div>
-                                <div class="form-error" id="registerPasswordError"></div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="form-label" for="confirmPassword">Confirmar Contraseña</label>
-                                <div class="input-icon">
-                                    <input 
-                                        type="password" 
-                                        id="confirmPassword" 
-                                        class="form-input" 
-                                        placeholder="Repite tu contraseña"
-                                        required
-                                    >
-                                    <i class="fas fa-lock"></i>
-                                    <button type="button" class="password-toggle" onclick="togglePassword('confirmPassword')">
-                                        <i class="fas fa-eye" id="confirmPasswordToggle"></i>
-                                    </button>
-                                </div>
-                                <div class="form-error" id="confirmPasswordError"></div>
-                            </div>
-
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="acceptTerms" class="checkbox-input" required>
-                                <label for="acceptTerms" class="checkbox-label">
-                                    Acepto los <a href="#">Términos y Condiciones</a> y la 
-                                    <a href="#">Política de Privacidad</a>
-                                </label>
-                            </div>
-                            <div class="form-error" id="acceptTermsError"></div>
-
-                            <div class="checkbox-group">
-                                <input type="checkbox" id="acceptNewsletter" class="checkbox-input">
-                                <label for="acceptNewsletter" class="checkbox-label">
-                                    Quiero recibir ofertas y noticias por email
-                                </label>
-                            </div>
-
-                            <button type="submit" class="btn btn-primary" id="registerButton">
-                                <i class="fas fa-user-plus"></i> Crear Cuenta
-                            </button>
-                        </form>
-
-                        <div class="form-divider">
-                            <span>o</span>
-                        </div>
-
-                        <button type="button" class="btn btn-google" id="googleRegisterButton">
-                            <i class="fab fa-google"></i>
-                            Registrarse con Google
-                        </button>
-                    </section>
-                </div>
-            </div>
-        </main>
-</body>
+    <script src="{% static 'js/inicio.js' %}"></script>
+</html>

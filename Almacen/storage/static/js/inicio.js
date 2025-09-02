@@ -23,6 +23,7 @@ document.querySelectorAll('.nav-btn').forEach(btn => {
 document.querySelectorAll('.city-card').forEach(card => {
     card.addEventListener('click', function() {
         const cityName = this.textContent;
-        window.location.href = `productos.html?ciudad=${encodeURIComponent(cityName)}`;
+        window.location.href = `inicio.html?ciudad=${encodeURIComponent(cityName)}`;
     });
 });
+

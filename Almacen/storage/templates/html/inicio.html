@@ -25,10 +25,27 @@
 
         <!-- Hero Section -->
         <section class="hero">
-            <div class="hero-content">
-                <div style="color: #666; font-size: 1.2rem;">Carrusel de Imágenes</div>
+        <div class="hero-content">
+            <div style="color: #666; font-size: 1.2rem; margin-bottom: 8px;">Carrusel de Imágenes</div>
+
+            <div class="carousel" id="carousel">
+            <button class="carousel-btn prev" aria-label="Anterior" id="prevBtn">&#10094;</button>
+
+            <div class="carousel-track" id="carouselTrack">
+                {% for foto in fotos %}
+                <div class="carousel-slide">
+                    <img src="{{ foto.archivo.url }}" alt="{{ foto.nombre|default:'Foto' }}">
+                </div>
+                {% empty %}
+                <div style="color:#888; font-size: .95rem;">Aún no hay fotos. Sube algunas desde la API o el admin.</div>
+                {% endfor %}
             </div>
+
+            <button class="carousel-btn next" aria-label="Siguiente" id="nextBtn">&#10095;</button>
+            </div>
+        </div>
         </section>
+
 
         <!-- Search Section -->
         <section class="search-section">

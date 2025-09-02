@@ -310,3 +310,75 @@ body {
         grid-template-columns: repeat(2, 1fr);
     }
 }
+/* === Carrusel básico === */
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: 12px;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 0;
+  transition: transform 0.35s ease;
+  will-change: transform;
+}
+
+.carousel-slide {
+  flex: 0 0 100%;
+  max-height: 420px;
+  display: grid;
+  place-items: center;
+  background: #f5f5f5;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 420px;
+  object-fit: cover;
+  display: block;
+}
+
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 0;
+  background: rgba(0,0,0,.35);
+  color: #fff;
+  font-size: 22px;
+  padding: 10px 14px;
+  border-radius: 8px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.carousel-btn:hover { background: rgba(0,0,0,.5); }
+
+.carousel-btn.prev { left: 10px; }
+.carousel-btn.next { right: 10px; }
+
+@media (max-width: 768px) {
+  .carousel-slide img { height: 260px; }
+}
+
+/* Contenedor del slide con un máximo de tamaño */
+.carousel-slide {
+  width: min(100%, 960px);        /* no excede 960px */
+  aspect-ratio: 16 / 9;           /* relación fija */
+  max-height: 480px;              /* tope vertical por si pantallas bajitas */
+  overflow: hidden;
+  border-radius: 12px;
+  background: #f5f5f5;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;              /* o 'contain' si no quieres recorte */
+  display: block;
+}
+
