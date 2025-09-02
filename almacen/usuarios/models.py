@@ -2,9 +2,12 @@ from django.db import models
 
 # Create your models here.
 class Usuario(models.Model):
-    nombre = models.CharField(max_length=100)
-    correo = models.EmailField(unique=True)
-    contraseña = models.CharField(max_length=100)
+    nombre = models.CharField("Nombre completo", max_length=100)
+    correo = models.EmailField("Correo electrónico", unique=True)
+    contraseña = models.CharField("Contraseña", max_length=128)
 
     def __str__(self):
         return self.nombre
+    class Meta:
+        verbose_name = "Usuario"
+        verbose_name_plural = "Usuarios"
