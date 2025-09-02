@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 from django.urls import include
 from storage import views as views
 from usuarios import views as user_views
-
+from django.conf.urls.static import static
 
 
 urlpatterns = [
@@ -22,7 +22,10 @@ urlpatterns = [
     path('registro/',views.registro, name='registro'),
 
     path('usuarios/', include('usuarios.urls')),
-]
+    path('api/', include('storage.urls')),
+
+    
+]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Para servir archivos estáticos y media en desarrollo
 if settings.DEBUG:
