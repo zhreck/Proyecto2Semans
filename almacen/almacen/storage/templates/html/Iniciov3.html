@@ -1,0 +1,199 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="es">
+
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>BodegasChile - Encuentra tu bodega ideal</title>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="{% static 'css/inicio3.css' %}">
+    </head>
+
+    <body>
+        <!-- Header -->
+        <header class="header">
+            <nav class="nav-container">
+                <a href="#" class="logo">
+                    <i class="fas fa-warehouse"></i>
+                    BodegasChile
+                </a>
+
+                <ul class="nav-menu" id="navMenu">
+                    <li><a href="{% url 'productos' %}">Productos</a></li>
+                    <li><a href="{% url 'acceso' %}">Acceso</a></li>
+                    <li><a href="{% url 'ayuda' %}">Ayuda</a></li>
+                </ul>
+
+                <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </nav>
+        </header>
+
+        <!-- Hero Section -->
+        <section class="hero">
+            <div class="hero-content">
+                <h1>Encuentra tu bodega ideal en todo Chile</h1>
+                <p>La plataforma líder para venta y arriendo de bodegas industriales y comerciales</p>
+                <a href="{% url 'productos' %}" class="cta-button">
+                    <i class="fas fa-search"></i> Explorar Bodegas
+                </a>
+            </div>
+        </section>
+
+        <!-- Search Section -->
+        <section class="search-section">
+            <div class="container">
+                <div class="search-container">
+                    <h2 style="text-align: center; color: var(--azul); margin-bottom: 1.5rem;">Búsqueda Rápida</h2>
+                    <form class="search-form" id="quickSearchForm">
+                        <input type="text" class="search-input"
+                            placeholder="Buscar por ubicación, tamaño o características..." id="quickSearch">
+                        <button type="submit" class="search-button">
+                            <i class="fas fa-search"></i> Buscar
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </section>
+
+        <!-- Categories Section -->
+        <section class="categories-section">
+            <div class="container">
+                <h2 class="section-title">Categorías Destacadas</h2>
+                <div class="categories-grid">
+                    <div class="category-card" onclick="filterByCategory('pequeña')">
+                        <i class="fas fa-cube"></i>
+                        <h3>Bodegas Pequeñas</h3>
+                        <p>Ideales para emprendimientos y pequeñas empresas. Desde 50 hasta 200 m²</p>
+                    </div>
+
+                    <div class="category-card" onclick="filterByCategory('mediana')">
+                        <i class="fas fa-boxes"></i>
+                        <h3>Bodegas Medianas</h3>
+                        <p>Perfecto para empresas en crecimiento. Desde 200 hasta 500 m²</p>
+                    </div>
+
+                    <div class="category-card" onclick="filterByCategory('grande')">
+                        <i class="fas fa-industry"></i>
+                        <h3>Bodegas Grandes</h3>
+                        <p>Para operaciones industriales y logística. Más de 500 m²</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Benefits Section -->
+        <section class="benefits-section">
+            <div class="container">
+                <h2 class="section-title" style="color: var(--vino-oscuro);">¿Por qué elegir BodegasChile?</h2>
+                <div class="benefits-grid">
+                    <div class="benefit-item">
+                        <i class="fas fa-map-marked-alt"></i>
+                        <h4>Cobertura Nacional</h4>
+                        <p>Bodegas disponibles en todas las regiones de Chile</p>
+                    </div>
+
+                    <div class="benefit-item">
+                        <i class="fas fa-shield-alt"></i>
+                        <h4>Propiedades Verificadas</h4>
+                        <p>Todas nuestras bodegas son inspeccionadas y verificadas</p>
+                    </div>
+
+                    <div class="benefit-item">
+                        <i class="fas fa-handshake"></i>
+                        <h4>Asesoría Especializada</h4>
+                        <p>Expertos en bienes raíces industriales te acompañan</p>
+                    </div>
+
+                    <div class="benefit-item">
+                        <i class="fas fa-clock"></i>
+                        <h4>Proceso Rápido</h4>
+                        <p>Encuentra y arrienda tu bodega en tiempo record</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Testimonials Section -->
+        <section class="testimonials-section">
+            <div class="container">
+                <h2 class=" section-title">Lo que dicen nuestros clientes</h2>
+                <div class="testimonial-grip">
+                    <div class="testimonial">
+                        <p class="testimonial-text">
+                            "Encontré la bodega perfecta para mi empresa en solo una semana. La plataforma es muy fácil de
+                            usar
+                            y el servicio al cliente es excepcional."
+                        </p>
+                        <div class="testimonial-author">
+                            - María González, Distribuidora Los Andes
+                        </div>
+                    </div>
+
+                    <div class="testimonial">
+                        <p class="testimonial-text">
+                            "Encontré la bodega perfecta para mi empresa en solo una semana. La plataforma es muy fácil de
+                            usar
+                            y el servicio al cliente es excepcional."
+                        </p>
+                        <div class="testimonial-author">
+                            - María González, Distribuidora Los Andes
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>BodegasChile</h4>
+                    <ul>
+                        <li><a href="#">Acerca de nosotros</a></li>
+                        <li><a href="#">Términos y condiciones</a></li>
+                        <li><a href="#">Política de privacidad</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Servicios</h4>
+                    <ul>
+                        <li><a href="#">Venta de bodegas</a></li>
+                        <li><a href="#">Arriendo de bodegas</a></li>
+                        <li><a href="#">Asesoría inmobiliaria</a></li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Contacto</h4>
+                    <ul>
+                        <li><i class="fas fa-phone"></i> +56 2 2345 6789</li>
+                        <li><i class="fas fa-envelope"></i> contacto@bodegaschile.cl</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Santiago, Chile</li>
+                    </ul>
+                </div>
+
+                <div class="footer-section">
+                    <h4>Síguenos</h4>
+                    <ul>
+                        <li><a href="#"><i class="fab fa-facebook"></i> Facebook</a></li>
+                        <li><a href="#"><i class="fab fa-instagram"></i> Instagram</a></li>
+                        <li><a href="#"><i class="fab fa-linkedin"></i> LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p>&copy; 2025 BodegasChile. Todos los derechos reservados.</p>
+            </div>
+        </footer>
+
+        <script src="{% static 'js/inicio3.js' %}"></script>
+    </body>
+
+</html>

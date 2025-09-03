@@ -1,0 +1,433 @@
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #1a1a1a;
+    color: white;
+}
+
+/* Header */
+.header {
+    background-color: #2a2a2a;
+    padding: 1rem 0;
+    border-bottom: 1px solid #444;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-size: 1.8rem;
+    font-weight: bold;
+    color: #4a9eff;
+}
+
+.nav-buttons {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-btn {
+    padding: 0.8rem 1.5rem;
+    background-color: transparent;
+    color: white;
+    border: 1px solid #666;
+    border-radius: 5px;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.nav-btn:hover {
+    background-color: #4a9eff;
+    border-color: #4a9eff;
+}
+
+/* Hero Section */
+.hero {
+  background: linear-gradient(rgba(0,0,0,0.7), rgba(0,0,0,0.7)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23333" width="1200" height="600"/><text x="600" y="300" text-anchor="middle" fill="%23666" font-size="24">Carrusel de Imágenes</text></svg>');
+  background-size: cover;
+  background-position: center;
+  /* height: 400px; */
+  padding: 1.5rem 0 2rem; /* deja respirar al carrusel */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.hero-content {
+    text-align: center;
+    max-width: 800px;
+    padding: 0 2rem;
+}
+
+/* Search Section */
+.search-section {
+    background-color: #2a2a2a;
+    padding: 2rem;
+    margin-top: -50px;
+    position: relative;
+    z-index: 10;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+    border-radius: 10px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.5);
+}
+
+.search-controls {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    align-items: end;
+}
+
+.search-group {
+    flex: 1;
+    min-width: 150px;
+}
+
+.search-group label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+.search-input, .search-select {
+    width: 100%;
+    padding: 0.8rem;
+    background-color: #1a1a1a;
+    border: 1px solid #666;
+    border-radius: 5px;
+    color: white;
+    font-size: 1rem;
+}
+
+.search-btn {
+    padding: 0.8rem 2rem;
+    background-color: #4a9eff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+}
+
+.search-btn:hover {
+    background-color: #357abd;
+}
+
+.search-btn.map-btn {
+    background-color: #5cb3f7;
+}
+
+/* Main Content */
+.main-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 4rem 2rem;
+}
+
+.section-title {
+    font-size: 2rem;
+    text-align: center;
+    margin-bottom: 3rem;
+    color: white;
+}
+
+.description {
+    text-align: center;
+    color: #ccc;
+    margin-bottom: 3rem;
+    line-height: 1.6;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Property Grid */
+.property-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 2rem;
+    margin-bottom: 4rem;
+}
+
+.property-card {
+    background-color: #2a2a2a;
+    border-radius: 10px;
+    overflow: hidden;
+    border: 1px solid #444;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.property-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+}
+
+.property-image {
+    width: 100%;
+    height: 200px;
+    background-color: #1a1a1a;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    font-size: 0.9rem;
+}
+
+.property-info {
+    padding: 1.5rem;
+}
+
+.property-price {
+    color: #4a9eff;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-bottom: 0.5rem;
+}
+
+.property-location {
+    color: #ccc;
+    font-size: 0.9rem;
+}
+
+/* Promotions Section */
+.promotions {
+    background-color: #2a2a2a;
+    padding: 3rem 2rem;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 4rem;
+    border: 1px solid #444;
+}
+
+.promo-buttons {
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    margin-top: 2rem;
+    flex-wrap: wrap;
+}
+
+.promo-btn {
+    padding: 1rem 2rem;
+    background-color: transparent;
+    color: white;
+    border: 1px solid #666;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.promo-btn:hover {
+    background-color: #4a9eff;
+    border-color: #4a9eff;
+}
+
+/* Cities Grid */
+.cities-section h3 {
+    color: #ccc;
+    margin-bottom: 1rem;
+    font-size: 1.2rem;
+}
+
+.cities-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+}
+
+.city-card {
+    position: relative;
+    height: 120px;
+    border-radius: 8px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.city-card:hover {
+    transform: scale(1.05);
+}
+
+.city-image {
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, #4a9eff, #357abd);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+/* Footer */
+.footer {
+    background-color: #1a1a1a;
+    padding: 2rem;
+    text-align: center;
+    border-top: 1px solid #444;
+    color: #ccc;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .search-controls {
+        flex-direction: column;
+    }
+    
+    .search-group {
+        width: 100%;
+    }
+
+    .nav-buttons {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .nav-btn {
+        padding: 0.6rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .cities-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* === Carrusel (versión final) =========================================== */
+:root {
+  /* parámetros ajustables */
+  --carousel-max-w: 1100px;         /* ancho máximo (usa más del área negra) */
+  --carousel-ratio: 20 / 8;          /* más alto que 16/9; en móvil lo subimos abajo */
+  --carousel-radius: 12px;
+
+  --carousel-btn-bg: rgba(0,0,0,0.22);
+  --carousel-btn-bg-hover: rgba(0,0,0,0.35);
+  --carousel-btn-fg: rgba(255,255,255,0.85);
+}
+
+/* que el contenido del hero no limite el carrusel */
+.hero-content { max-width: min(92vw, var(--carousel-max-w)); }
+
+/* contenedor del carrusel */
+.carousel {
+  position: relative;
+  width: 100%;
+  max-width: min(92vw, var(--carousel-max-w));
+  margin: 0 auto;
+  overflow: hidden;
+  border-radius: var(--carousel-radius);
+}
+
+/* pista deslizante */
+.carousel-track {
+  display: flex;
+  will-change: transform;
+  transition: transform 0.45s ease;
+}
+
+/* cada slide ocupa el 100% del ancho visible */
+.carousel-slide {
+  flex: 0 0 100%;
+  aspect-ratio: var(--carousel-ratio);
+  min-height: 360px;                /* evita que quede muy bajo */
+  max-height: 700px;                /* tope razonable en pantallas grandes */
+  background: #111;
+}
+
+/* imagen dentro del slide */
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;                 /* rellena sin deformar */
+  display: block;
+}
+
+/* flechas de navegación, discretas */
+.carousel-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  border: 1px solid rgba(255,255,255,0.15);
+  background: var(--carousel-btn-bg);
+  color: var(--carousel-btn-fg);
+  font-size: 22px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  cursor: pointer;
+  z-index: 2;
+  opacity: 0.65;
+  transition: opacity .2s ease, background .2s ease, transform .2s ease;
+}
+.carousel-btn:hover   { background: var(--carousel-btn-bg-hover); opacity: 0.95; }
+.carousel-btn:active  { transform: translateY(-50%) scale(0.98); }
+.carousel-btn.prev    { left: 10px; }
+.carousel-btn.next    { right: 10px; }
+
+/* responsive */
+@media (max-width: 768px) {
+  :root { --carousel-ratio: 4 / 3; } /* un poco más alto en móvil */
+  .hero-content, .carousel { max-width: 95vw; }
+  .carousel-btn { font-size: 20px; padding: 8px 12px; }
+}
+
+
+/* Uploader simple dentro de la card */
+.property-form .upload-drop {
+  display: grid;
+  place-items: center;
+  background: #111;
+  color: #888;
+  border: 1px dashed #444;
+  height: 220px;
+  position: relative;
+}
+.property-form .upload-drop.drag { border-color: #4a9eff; color: #4a9eff; }
+.property-form .upload-drop.has-image { border-style: solid; }
+
+.property-form #preview {
+  position: absolute;
+  inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover;
+  border-radius: 0;
+}
+
+.property-form .btn-small{
+  padding: .5rem .9rem;
+  border-radius: 6px;
+  border: 1px solid #666;
+  background: #2a2a2a;
+  color: #eee;
+  cursor: pointer;
+}
+.property-form .btn-small:hover{ background:#3a3a3a; }
+
+.property-form .field{
+  display: grid;
+  gap: .4rem;
+  margin: .8rem 0;
+}
+.property-form .field span{
+  color:#bbb; font-size:.9rem;
+}
+.property-form .actions{ margin-top: .6rem; display:flex; justify-content:flex-end; }
+.property-form .form-msg{ margin-top:.6rem; color:#bbb; }
+.property-form .form-msg.ok{ color:#5bd68a; }

@@ -21,12 +21,14 @@ urlpatterns = [
     path('ayuda/', views.ayuda, name='ayuda'),
     path('registro/',views.registro, name='registro'),
 
-    path('usuarios/', include('usuarios.urls')),
-    path('api/', include('storage.urls')),
+    path('usuarios/', include('almacen.usuarios.urls')),
+    path("api/", include("almacen.storage.urls")),
+    path("api/", include("almacen.usuarios.urls")),
 
     
 ]+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
+    
 # Para servir archivos estáticos y media en desarrollo
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

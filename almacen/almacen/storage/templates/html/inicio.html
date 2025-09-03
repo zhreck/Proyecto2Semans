@@ -1,0 +1,198 @@
+
+
+{% load static %}
+{% load humanize %} {# opcional: para formatear precios con intcomma #}
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Página de Inicio</title>
+    <link rel="stylesheet" href="{% static 'css/inicio.css' %}">
+  </head>
+  <!-- Expone la URL de productos para que el JS redirija correctamente -->
+  <body data-productos="{% url 'productos' %}">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="nav-container">
+        <div class="logo">BodegasChile</div>
+        <nav class="nav-buttons">
+          <a href="{% url 'inicio' %}" class="nav-btn">Inicio</a>
+          <a href="{% url 'acceso' %}" class="nav-btn">Acceder</a>
+          <a href="{% url 'ayuda' %}" class="nav-btn">Ayuda</a>
+          <a href="{% url 'publicar' %}" class="nav-btn">Publicar propiedad</a> {# ajusta si no existe #}
+        </nav>
+      </div>
+    </header>
+
+    <!-- Hero + Carrusel -->
+    <section class="hero">
+      <div class="hero-content">
+        <div style="color:#666;font-size:1.2rem;margin-bottom:8px;">Carrusel de Imágenes</div>
+
+        <div class="carousel" id="carousel">
+          <button class="carousel-btn prev" aria-label="Anterior" id="prevBtn">&#10094;</button>
+
+          <div class="carousel-track" id="carouselTrack">
+            {% for foto in fotos %}
+              <div class="carousel-slide">
+                <img src="{{ foto.archivo.url }}" alt="{{ foto.nombre|default:'Foto' }}">
+              </div>
+            {% empty %}
+              <div class="carousel-slide">
+                <img src="{% static 'img/placeholder-wide.jpg' %}" alt="Placeholder">
+              </div>
+            {% endfor %}
+          </div>
+
+          <button class="carousel-btn next" aria-label="Siguiente" id="nextBtn">&#10095;</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- Search Section -->
+    <section class="search-section">
+      <div class="search-controls">
+        <div class="search-group">
+          <label>Venta</label>
+          <select class="search-select" id="operacion">
+            <option value="venta" selected>Venta</option>
+            <option value="arriendo">Arriendo</option>
+          </select>
+        </div>
+        <div class="search-group">
+          <label>Sector</label>
+          <input type="text" class="search-input" id="sector" placeholder="Ingresa ubicación">
+        </div>
+        <button class="search-btn">Buscar</button>
+        <button class="search-btn map-btn">Buscar en Mapa</button>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+
+      <!-- Featured Properties -->
+      <section>
+        <h2 class="section-title">Destacados</h2>
+        <div class="property-grid">
+
+          <!-- Card de alta (foto + precio + comuna RM) -->
+          <div class="property-card">
+            <form id="form-propiedad" class="property-form" enctype="multipart/form-data">
+              {% csrf_token %}
+              <div class="property-image upload-drop" id="drop-zone">
+                <input type="file" id="foto" name="foto" accept="image/*" hidden required>
+                <button type="button" class="btn-small" id="btnPick">Subir foto</button>
+                <small class="hint">JPG/PNG; máx ~10MB</small>
+                <img id="preview" alt="" style="display:none;">
+              </div>
+
+              <div class="property-info">
+                <label class="field">
+                  <span>Precio</span>
+                  <input type="number" id="precio" name="precio" min="0" placeholder="Ej: 250000000" required>
+                </label>
+
+                <label class="field">
+                  <span>Comuna (Región Metropolitana)</span>
+                  <select id="comuna" name="comuna" required>
+                    <option value="" disabled selected>Selecciona</option>
+                    <option>Santiago</option><option>Providencia</option><option>Las Condes</option>
+                    <option>Ñuñoa</option><option>Vitacura</option><option>Lo Barnechea</option>
+                    <option>La Florida</option><option>Puente Alto</option><option>Maipú</option>
+                    <option>San Miguel</option><option>Recoleta</option><option>Independencia</option>
+                  </select>
+                </label>
+
+                <div class="actions">
+                  <button type="submit" class="search-btn">Guardar</button>
+                </div>
+                <div id="form-msg" class="form-msg"></div>
+              </div>
+            </form>
+          </div>
+
+          <!-- Cards con propiedades existentes (si las pasas desde la vista) -->
+          {% for p in propiedades %}
+            <div class="property-card">
+              <div class="property-image">
+                <img src="{{ p.foto.url }}" alt="Propiedad {{ p.id }}">
+              </div>
+              <div class="property-info">
+                <div class="property-price">Desde ${{ p.precio|intcomma }}</div>
+                <div class="property-location">Bodega en Venta en<br>{{ p.comuna }}</div>
+              </div>
+            </div>
+          {% empty %}
+            <!-- Si no hay propiedades aún, dejamos tus placeholders -->
+            <div class="property-card">
+              <div class="property-image">Imagen<br>de<br>Bodega<br>API</div>
+              <div class="property-info">
+                <div class="property-price">Desde (Precio)</div>
+                <div class="property-location">Bodega en Venta en<br>####</div>
+              </div>
+            </div>
+          {% endfor %}
+
+        </div>
+      </section>
+
+      <!-- Most Visited -->
+      <section>
+        <h2 class="section-title">Mayores vistas</h2>
+        <div class="property-grid">
+          {% for p in mas_vistas %}
+            <div class="property-card">
+              <div class="property-image">
+                <img src="{{ p.foto.url }}" alt="Propiedad {{ p.id }}">
+              </div>
+              <div class="property-info">
+                <div class="property-price">Desde ${{ p.precio|intcomma }}</div>
+                <div class="property-location">Bodega en Venta en<br>{{ p.comuna }}</div>
+              </div>
+            </div>
+          {% empty %}
+            <!-- placeholders -->
+            <div class="property-card">
+              <div class="property-image">Imagen<br>de<br>Bodega<br>API</div>
+              <div class="property-info">
+                <div class="property-price">Desde (Precio)</div>
+                <div class="property-location">Bodega en Venta en<br>####</div>
+              </div>
+            </div>
+          {% endfor %}
+        </div>
+      </section>
+
+      <!-- Cities Section -->
+      <section class="cities-section">
+        <h3>Propiedades en Chile</h3>
+        <div class="cities-grid">
+          <div class="city-card"><div class="city-image">Antofagasta</div></div>
+          <div class="city-card"><div class="city-image">Concón</div></div>
+          <div class="city-card"><div class="city-image">Coquimbo</div></div>
+          <div class="city-card"><div class="city-image">Santiago</div></div>
+          <div class="city-card"><div class="city-image">Temuco</div></div>
+          <div class="city-card"><div class="city-image">La Serena</div></div>
+          <div class="city-card"><div class="city-image">Pucón</div></div>
+          <div class="city-card"><div class="city-image">Viña del Mar</div></div>
+          <div class="city-card"><div class="city-image">Iquique</div></div>
+          <div class="city-card"><div class="city-image">Mendoza</div></div>
+          <div class="city-card"><div class="city-image">Lonquimay</div></div>
+          <div class="city-card"><div class="city-image">Valdivia</div></div>
+          <div class="city-card"><div class="city-image">Pto. Varas</div></div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <p>&copy; 2024 BodegasChile. Todos los derechos reservados.</p>
+    </footer>
+
+    <!-- JS -->
+    <script src="{% static 'js/inicio.js' %}"></script>
+  </body>
+</html>

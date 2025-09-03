@@ -19,5 +19,6 @@ urlpatterns = [
     path('registro/', registro, name='registro'),
     # API
     path('', include(router.urls)),
+    path("api/", include("storage.urls")), 
     path("api/", include("almacen.storage.urls")),
 ]
