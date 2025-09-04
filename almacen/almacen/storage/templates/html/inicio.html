@@ -1,16 +1,15 @@
-
-
 {% load static %}
-{% load humanize %} {# opcional: para formatear precios con intcomma #}
+{% load humanize %}
 <!DOCTYPE html>
 <html lang="es">
   <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
     <title>Página de Inicio</title>
     <link rel="stylesheet" href="{% static 'css/inicio.css' %}">
   </head>
-  <!-- Expone la URL de productos para que el JS redirija correctamente -->
+
+  <!-- URL base para el JS (redirige búsquedas y ciudades) -->
   <body data-productos="{% url 'productos' %}">
 
     <!-- Header -->
@@ -21,7 +20,7 @@
           <a href="{% url 'inicio' %}" class="nav-btn">Inicio</a>
           <a href="{% url 'acceso' %}" class="nav-btn">Acceder</a>
           <a href="{% url 'ayuda' %}" class="nav-btn">Ayuda</a>
-          <a href="{% url 'publicar' %}" class="nav-btn">Publicar propiedad</a> {# ajusta si no existe #}
+          <a href="{% url 'publicar' %}" class="nav-btn">Publicar propiedad</a> 
         </nav>
       </div>
     </header>
@@ -29,7 +28,7 @@
     <!-- Hero + Carrusel -->
     <section class="hero">
       <div class="hero-content">
-        <div style="color:#666;font-size:1.2rem;margin-bottom:8px;">Carrusel de Imágenes</div>
+        <div style="color:#666;font-size:1.2rem;margin-bottom:8px;"></div>
 
         <div class="carousel" id="carousel">
           <button class="carousel-btn prev" aria-label="Anterior" id="prevBtn">&#10094;</button>
@@ -41,7 +40,7 @@
               </div>
             {% empty %}
               <div class="carousel-slide">
-                <img src="{% static 'img/placeholder-wide.jpg' %}" alt="Placeholder">
+                <img src="{% static 'img/placeholder-wide.jpg' %}" alt="Sin fotos aún">
               </div>
             {% endfor %}
           </div>
@@ -51,7 +50,7 @@
       </div>
     </section>
 
-    <!-- Search Section -->
+    <!-- Search -->
     <section class="search-section">
       <div class="search-controls">
         <div class="search-group">
@@ -70,83 +69,34 @@
       </div>
     </section>
 
-    <!-- Main Content -->
+    <!-- Main -->
     <main class="main-content">
-
-      <!-- Featured Properties -->
+      <!-- Destacados -->
       <section>
         <h2 class="section-title">Destacados</h2>
         <div class="property-grid">
-
-          <!-- Card de alta (foto + precio + comuna RM) -->
-          <div class="property-card">
-            <form id="form-propiedad" class="property-form" enctype="multipart/form-data">
-              {% csrf_token %}
-              <div class="property-image upload-drop" id="drop-zone">
-                <input type="file" id="foto" name="foto" accept="image/*" hidden required>
-                <button type="button" class="btn-small" id="btnPick">Subir foto</button>
-                <small class="hint">JPG/PNG; máx ~10MB</small>
-                <img id="preview" alt="" style="display:none;">
-              </div>
-
-              <div class="property-info">
-                <label class="field">
-                  <span>Precio</span>
-                  <input type="number" id="precio" name="precio" min="0" placeholder="Ej: 250000000" required>
-                </label>
-
-                <label class="field">
-                  <span>Comuna (Región Metropolitana)</span>
-                  <select id="comuna" name="comuna" required>
-                    <option value="" disabled selected>Selecciona</option>
-                    <option>Santiago</option><option>Providencia</option><option>Las Condes</option>
-                    <option>Ñuñoa</option><option>Vitacura</option><option>Lo Barnechea</option>
-                    <option>La Florida</option><option>Puente Alto</option><option>Maipú</option>
-                    <option>San Miguel</option><option>Recoleta</option><option>Independencia</option>
-                  </select>
-                </label>
-
-                <div class="actions">
-                  <button type="submit" class="search-btn">Guardar</button>
-                </div>
-                <div id="form-msg" class="form-msg"></div>
-              </div>
-            </form>
-          </div>
-
-          <!-- Cards con propiedades existentes (si las pasas desde la vista) -->
           {% for p in propiedades %}
-            <div class="property-card">
-              <div class="property-image">
-                <img src="{{ p.foto.url }}" alt="Propiedad {{ p.id }}">
+              <div class="property-card">
+                <div class="property-image"><img src="{{ p.foto.url }}" alt=""></div>
+                <div class="property-info">
+                  <div class="property-price">Desde ${{ p.precio|intcomma }}</div>
+                  <div class="property-location">Bodega en Venta en<br>{{ p.comuna }}</div>
+                </div>
               </div>
-              <div class="property-info">
-                <div class="property-price">Desde ${{ p.precio|intcomma }}</div>
-                <div class="property-location">Bodega en Venta en<br>{{ p.comuna }}</div>
-              </div>
-            </div>
-          {% empty %}
-            <!-- Si no hay propiedades aún, dejamos tus placeholders -->
-            <div class="property-card">
-              <div class="property-image">Imagen<br>de<br>Bodega<br>API</div>
-              <div class="property-info">
-                <div class="property-price">Desde (Precio)</div>
-                <div class="property-location">Bodega en Venta en<br>####</div>
-              </div>
-            </div>
+                {% empty %}
+              <p class="description">Sin propiedades por ahora.</p>
           {% endfor %}
-
         </div>
       </section>
 
-      <!-- Most Visited -->
+      <!-- Mayores vistas (opcional, si tu vista pasa 'mas_vistas') -->
       <section>
         <h2 class="section-title">Mayores vistas</h2>
         <div class="property-grid">
           {% for p in mas_vistas %}
             <div class="property-card">
               <div class="property-image">
-                <img src="{{ p.foto.url }}" alt="Propiedad {{ p.id }}">
+                <img src="{{ p.foto.url }}" alt="Propiedad {{ p.id }}" loading="lazy">
               </div>
               <div class="property-info">
                 <div class="property-price">Desde ${{ p.precio|intcomma }}</div>
@@ -154,19 +104,12 @@
               </div>
             </div>
           {% empty %}
-            <!-- placeholders -->
-            <div class="property-card">
-              <div class="property-image">Imagen<br>de<br>Bodega<br>API</div>
-              <div class="property-info">
-                <div class="property-price">Desde (Precio)</div>
-                <div class="property-location">Bodega en Venta en<br>####</div>
-              </div>
-            </div>
+            <p class="description" style="margin-top:0">Aún no hay más vistas.</p>
           {% endfor %}
         </div>
       </section>
 
-      <!-- Cities Section -->
+      <!-- Cities -->
       <section class="cities-section">
         <h3>Propiedades en Chile</h3>
         <div class="cities-grid">
