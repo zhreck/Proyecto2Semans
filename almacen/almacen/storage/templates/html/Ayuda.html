@@ -1,27 +1,482 @@
 {% load static %}
-
 <!DOCTYPE html>
 <html lang="es">
-    <head>
-        <meta charset="UTF-8">
-        <title>Página de Ayuda</title>
-        <link rel="stylesheet" href="{% static 'css/ayuda.css' %}">
 
-    </head>
-    <body>
-        <!-- Header -->
-        <header class="header">
-            <div class="nav-container">
-                <div class="logo">BodegasChile</div>
-                <nav class="nav-buttons">
-                    <a href="{% url 'inicio' %}" class="nav-btn">Inicio</a>
-                    <a href="{% url 'acceso' %}" class="nav-btn">Acceder</a>
-                    <a href="{% url 'ayuda' %}" class="nav-btn">Ayuda</a>
-                    <a href="#" class="nav-btn">Publicar propiedad</a>
-                </nav>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ayuda - BodegasChile</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static '/css/ayuda.css' %}">
+</head>
 
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav-container">
+            <a href="index.html" class="logo">
+                <i class="fas fa-warehouse"></i>
+                BodegasChile
+            </a>
+
+            <ul class="nav-menu" id="navMenu">
+                <li><a href="index.html">Inicio</a></li>
+                <li><a href="productos.html">Productos</a></li>
+                <li><a href="acceso.html">Acceso</a></li>
+                <li><a href="ayuda.html" class="active">Ayuda</a></li>
+            </ul>
+
+            <button class="mobile-menu-toggle" id="mobileMenuToggle">
+                <i class="fas fa-bars"></i>
+            </button>
+        </nav>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Page Header -->
+        <section class="page-header">
+            <div class="page-header-content">
+                <h1 class="page-title">Centro de Ayuda</h1>
+                <p class="page-subtitle">Encuentra respuestas a tus preguntas y obtén el soporte que necesitas para
+                    encontrar tu bodega ideal</p>
             </div>
-        </header>
-    </body>
+        </section>
+
+        <div class="container">
+            <!-- Help Navigation -->
+            <nav class="help-navigation fade-in">
+                <div class="help-nav-title">
+                    <i class="fas fa-compass"></i> Navegación Rápida
+                </div>
+                <div class="help-nav-links">
+                    <a href="#about" class="help-nav-link" data-section="about">
+                        <i class="fas fa-info-circle"></i> Acerca del Sitio
+                    </a>
+                    <a href="#faq" class="help-nav-link" data-section="faq">
+                        <i class="fas fa-question-circle"></i> Preguntas Frecuentes
+                    </a>
+                    <a href="#contact" class="help-nav-link" data-section="contact">
+                        <i class="fas fa-envelope"></i> Contacto
+                    </a>
+                </div>
+            </nav>
+
+            <!-- About Section -->
+            <section id="about" class="help-section slide-in-left">
+                <h2 class="section-title">
+                    <i class="fas fa-info-circle"></i>
+                    Acerca de BodegasChile
+                </h2>
+
+                <p style="font-size: 1.1rem; color: var(--gris-medio); margin-bottom: 2rem; line-height: 1.8;">
+                    BodegasChile es la plataforma líder en Chile para la compra y arriendo de bodegas industriales y
+                    comerciales.
+                    Conectamos empresas con las mejores opciones de almacenamiento y logística en todo el país.
+                </p>
+
+                <div class="about-grid">
+                    <div class="about-card">
+                        <i class="fas fa-building"></i>
+                        <h3>Nuestra Misión</h3>
+                        <p>Facilitar el acceso a espacios de almacenamiento de calidad, conectando propietarios y
+                            empresas de manera eficiente y segura.</p>
+                    </div>
+
+                    <div class="about-card">
+                        <i class="fas fa-eye"></i>
+                        <h3>Nuestra Visión</h3>
+                        <p>Ser la plataforma de referencia en Chile para soluciones de bodegas, impulsando el
+                            crecimiento empresarial del país.</p>
+                    </div>
+
+                    <div class="about-card">
+                        <i class="fas fa-heart"></i>
+                        <h3>Nuestros Valores</h3>
+                        <p>Transparencia, confiabilidad, innovación y compromiso con el éxito de nuestros clientes y
+                            partners.</p>
+                    </div>
+                </div>
+
+                <!-- Statistics -->
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="500">0</div>
+                        <div class="stat-label">Bodegas Disponibles</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="15">0</div>
+                        <div class="stat-label">Regiones Cubiertas</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="1200">0</div>
+                        <div class="stat-label">Clientes Satisfechos</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" data-target="98">0</div>
+                        <div class="stat-label">% Satisfacción</div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FAQ Section -->
+            <section id="faq" class="help-section slide-in-right">
+                <h2 class="section-title">
+                    <i class="fas fa-question-circle"></i>
+                    Preguntas Frecuentes
+                </h2>
+
+                <div class="faq-container">
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            ¿Cómo funciona BodegasChile?
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>BodegasChile es una plataforma que conecta propietarios de bodegas con empresas que
+                                buscan espacios de almacenamiento. Puedes:</p>
+                            <ul>
+                                <li>Buscar bodegas por ubicación, tamaño y características</li>
+                                <li>Comparar precios y condiciones</li>
+                                <li>Contactar directamente con los propietarios</li>
+                                <li>Gestionar contratos de arriendo o compra</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            ¿Es gratuito usar la plataforma?
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Sí, buscar y contactar propietarios es completamente gratuito para empresas. Los
+                                propietarios pagan una comisión solo cuando se concreta un arriendo o venta exitosa.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            ¿Qué tipos de bodegas puedo encontrar?
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>En nuestra plataforma encontrarás diversos tipos de bodegas:</p>
+                            <ul>
+                                <li><strong>Bodegas industriales:</strong> Para manufactura y producción</li>
+                                <li><strong>Bodegas logísticas:</strong> Para distribución y almacenamiento</li>
+                                <li><strong>Bodegas comerciales:</strong> Para retail y comercio</li>
+                                <li><strong>Centros de distribución:</strong> Para e-commerce y logística</li>
+                                <li><strong>Almacenes refrigerados:</strong> Para productos que requieren frío</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            ¿En qué ciudades tienen cobertura?
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Tenemos presencia en las principales ciudades de Chile:</p>
+                            <ul>
+                                <li>Región Metropolitana (Santiago, Maipú, Quilicura, Pudahuel)</li>
+                                <li>Valparaíso (Valparaíso, Viña del Mar, San Antonio)</li>
+                                <li>Biobío (Concepción, Talcahuano)</li>
+                                <li>Antofagasta</li>
+                                <li>La Araucanía (Temuco)</li>
+                                <li>Y muchas más ciudades en crecimiento</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            ¿Cómo se verifica la calidad de las bodegas?
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Todas nuestras bodegas pasan por un proceso de verificación que incluye:</p>
+                            <ul>
+                                <li>Inspección física de las instalaciones</li>
+                                <li>Verificación de documentos legales</li>
+                                <li>Evaluación de condiciones de seguridad</li>
+                                <li>Confirmación de servicios básicos</li>
+                                <li>Evaluación de accesibilidad y conectividad</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            ¿Qué documentos necesito para arrendar?
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Para arrendar una bodega generalmente necesitas:</p>
+                            <ul>
+                                <li>RUT de la empresa</li>
+                                <li>Iniciación de actividades del SII</li>
+                                <li>Estados financieros recientes</li>
+                                <li>Carta de referencias comerciales</li>
+                                <li>Garantía (depósito o aval bancario)</li>
+                                <li>Documentos específicos según el tipo de actividad</li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            ¿Puedo visitar las bodegas antes de decidir?
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>¡Por supuesto! Recomendamos siempre visitar las bodegas antes de tomar una decisión.
+                                Puedes coordinar visitas directamente con los propietarios a través de nuestra
+                                plataforma o contactar a nuestro equipo para agendar una cita.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            ¿Ofrecen asesoría para elegir la bodega adecuada?
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Sí, nuestro equipo de expertos en bienes raíces industriales puede asesorarte
+                                gratuitamente para encontrar la bodega que mejor se adapte a tus necesidades
+                                específicas, considerando ubicación, tamaño, presupuesto y características especiales.
+                            </p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <button class="faq-question">
+                            ¿Qué pasa si tengo problemas con mi bodega arrendada?
+                            <i class="fas fa-chevron-down faq-icon"></i>
+                        </button>
+                        <div class="faq-answer">
+                            <p>Ofrecemos soporte post-venta para ayudarte a resolver cualquier inconveniente. Nuestro
+                                equipo puede mediar entre arrendador y arrendatario para encontrar soluciones rápidas y
+                                efectivas.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="help-section fade-in">
+                <h2 class="section-title">
+                    <i class="fas fa-envelope"></i>
+                    Contáctanos
+                </h2>
+
+                <p style="font-size: 1.1rem; color: var(--gris-medio); margin-bottom: 2rem; line-height: 1.8;">
+                    ¿Tienes alguna pregunta específica o necesitas ayuda personalizada? Nuestro equipo está aquí para
+                    ayudarte.
+                </p>
+
+                <div class="alert alert-success" id="contactSuccess">
+                    <i class="fas fa-check-circle"></i>
+                    <span>¡Mensaje enviado exitosamente! Te responderemos dentro de 24 horas.</span>
+                </div>
+
+                <div class="alert alert-error" id="contactError">
+                    <i class="fas fa-exclamation-triangle"></i>
+                    <span>Error al enviar el mensaje. Por favor, intenta nuevamente.</span>
+                </div>
+
+                <div class="contact-grid">
+                    <!-- Contact Information -->
+                    <div class="contact-info">
+
+                        <div class="contact-method">
+                            <i class="fas fa-envelope"></i>
+                            <div class="contact-method-info">
+                                <h4>Email</h4>
+                                <p><a href="mailto:contacto@bodegaschile.cl">contacto@bodegaschile.cl</a></p>
+                                <p>Respuesta en menos de 24 horas</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-method">
+                            <i class="fas fa-whatsapp"></i>
+                            <div class="contact-method-info">
+                                <h4>WhatsApp</h4>
+                                <p><a href="https://wa.me/56912345678" target="_blank">+56 9 1234 5678</a></p>
+                                <p>Atención inmediata</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-method">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div class="contact-method-info">
+                                <h4>Oficina</h4>
+                                <p>Av. Providencia 1234, Oficina 567<br>Providencia, Santiago</p>
+                                <p>Visitas con cita previa</p>
+                            </div>
+                        </div>
+
+                        <div class="contact-method">
+                            <i class="fas fa-clock"></i>
+                            <div class="contact-method-info">
+                                <h4>Horarios de Atención</h4>
+                                <p>Lunes a Viernes: 9:00 - 18:00</p>
+                                <p>Sábados: 10:00 - 14:00</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div class="contact-form">
+                        <form id="contactForm" novalidate>
+                            <div class="form-group">
+                                <label class="form-label" for="contactName">Nombre Completo *</label>
+                                <input type="text" id="contactName" class="form-input" placeholder="Tu nombre completo"
+                                    required>
+                                <div class="form-error" id="contactNameError"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="contactEmail">Correo Electrónico *</label>
+                                <input type="email" id="contactEmail" class="form-input" placeholder="tu@email.com"
+                                    required>
+                                <div class="form-error" id="contactEmailError"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="contactPhone">Teléfono</label>
+                                <input type="tel" id="contactPhone" class="form-input" placeholder="+56 9 1234 5678">
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="contactSubject">Asunto *</label>
+                                <select id="contactSubject" class="form-select" required>
+                                    <option value="">Selecciona un asunto</option>
+                                    <option value="buscar-bodega">Buscar una bodega</option>
+                                    <option value="publicar-bodega">Publicar mi bodega</option>
+                                    <option value="soporte-tecnico">Soporte técnico</option>
+                                    <option value="informacion-general">Información general</option>
+                                    <option value="reclamo">Reclamo o sugerencia</option>
+                                    <option value="otro">Otro</option>
+                                </select>
+                                <div class="form-error" id="contactSubjectError"></div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="form-label" for="contactMessage">Mensaje *</label>
+                                <textarea id="contactMessage" class="form-textarea"
+                                    placeholder="Describe tu consulta o requerimiento en detalle..."
+                                    required></textarea>
+                                <div class="form-error" id="contactMessageError"></div>
+                            </div>
+
+                            <button type="submit" class="btn" id="contactButton">
+                                <i class="fas fa-paper-plane"></i>
+                                Enviar Mensaje
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Additional Help -->
+            <section class="help-section fade-in" style="margin-top: 3rem;">
+                <h2 class="section-title">
+                    <i class="fas fa-lightbulb"></i>
+                    Recursos Adicionales
+                </h2>
+
+                <div class="about-grid">
+                    <div class="about-card">
+                        <i class="fas fa-file-pdf"></i>
+                        <h3>Guía del Usuario</h3>
+                        <p>Descarga nuestra guía completa para sacar el máximo provecho de la plataforma.</p>
+                        <a href="#" style="color: var(--azul); font-weight: bold; text-decoration: none;">Descargar
+                            PDF</a>
+                    </div>
+
+                    <div class="about-card">
+                        <i class="fas fa-video"></i>
+                        <h3>Videos Tutoriales</h3>
+                        <p>Aprende a usar BodegasChile con nuestros videos paso a paso.</p>
+                        <a href="#" style="color: var(--azul); font-weight: bold; text-decoration: none;">Ver
+                            Tutoriales</a>
+                    </div>
+
+                    <div class="about-card">
+                        <i class="fas fa-users"></i>
+                        <h3>Comunidad</h3>
+                        <p>Únete a nuestra comunidad de usuarios y comparte experiencias.</p>
+                        <a href="#" style="color: var(--azul); font-weight: bold; text-decoration: none;">Acceder al
+                            Foro</a>
+                    </div>
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer style="background: var(--vino-oscuro); color: var(--blanco); padding: 3rem 2rem 1rem; margin-top: 3rem;">
+        <div class="container">
+            <div
+                style="display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 2rem; margin-bottom: 2rem;">
+                <div>
+                    <h4 style="color: var(--beige-claro); margin-bottom: 1rem;">BodegasChile</h4>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 0.5rem;"><a href="#"
+                                style="color: var(--blanco); text-decoration: none;">Acerca de nosotros</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#"
+                                style="color: var(--blanco); text-decoration: none;">Términos y condiciones</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#"
+                                style="color: var(--blanco); text-decoration: none;">Política de privacidad</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 style="color: var(--beige-claro); margin-bottom: 1rem;">Servicios</h4>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 0.5rem;"><a href="#"
+                                style="color: var(--blanco); text-decoration: none;">Venta de bodegas</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#"
+                                style="color: var(--blanco); text-decoration: none;">Arriendo de bodegas</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#"
+                                style="color: var(--blanco); text-decoration: none;">Asesoría inmobiliaria</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 style="color: var(--beige-claro); margin-bottom: 1rem;">Contacto</h4>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-phone"></i> +56 2 2345 6789</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-envelope"></i> contacto@bodegaschile.cl</li>
+                        <li style="margin-bottom: 0.5rem;"><i class="fas fa-map-marker-alt"></i> Santiago, Chile</li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h4 style="color: var(--beige-claro); margin-bottom: 1rem;">Síguenos</h4>
+                    <ul style="list-style: none;">
+                        <li style="margin-bottom: 0.5rem;"><a href="#"
+                                style="color: var(--blanco); text-decoration: none;"><i class="fab fa-facebook"></i>
+                                Facebook</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#"
+                                style="color: var(--blanco); text-decoration: none;"><i class="fab fa-instagram"></i>
+                                Instagram</a></li>
+                        <li style="margin-bottom: 0.5rem;"><a href="#"
+                                style="color: var(--blanco); text-decoration: none;"><i class="fab fa-linkedin"></i>
+                                LinkedIn</a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div
+                style="text-align: center; padding-top: 2rem; border-top: 1px solid var(--beige-oscuro); color: var(--beige-claro);">
+                <p>&copy; 2025 BodegasChile. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
     <script src="{% static 'js/ayuda.js' %}"></script>
+</body>
+
 </html>
