@@ -14,16 +14,16 @@
     <!-- Header -->
     <header class="header">
         <nav class="nav-container">
-            <a href="index.html" class="logo">
+            <a href="{% url 'inicio' %}" class="logo">
                 <i class="fas fa-warehouse"></i>
                 BodegasChile
             </a>
 
             <ul class="nav-menu" id="navMenu">
-                <li><a href="index.html">Inicio</a></li>
-                <li><a href="productos.html">Productos</a></li>
-                <li><a href="acceso.html">Acceso</a></li>
-                <li><a href="ayuda.html" class="active">Ayuda</a></li>
+                <li><a href="{% url 'inicio' %}">Inicio</a></li>
+                <li><a href="{% url 'productos' %}">Productos</a></li>
+                <li><a href="{% url 'acceso' %}">Acceso</a></li>
+                <li><a href="{% url 'ayuda' %}" class="active">Ayuda</a></li>
             </ul>
 
             <button class="mobile-menu-toggle" id="mobileMenuToggle">
