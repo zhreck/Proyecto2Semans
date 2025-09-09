@@ -7,12 +7,12 @@ from .views import (
 from almacen.storage import views as storageViews
 
 
-app_name = "storage"
+from rest_framework.routers import DefaultRouter
+from .views import ArchivoViewSet, PropiedadViewSet
 
 router = DefaultRouter()
-
-router.register(r'archivos', ArchivoViewSet, basename='archivo')
-router.register(r'propiedades', PropiedadViewSet, basename='propiedad')
+router.register(r"archivos",     ArchivoViewSet,   basename="archivo")
+router.register(r"propiedades",  PropiedadViewSet, basename="propiedad")
 
 urlpatterns = router.urls
 

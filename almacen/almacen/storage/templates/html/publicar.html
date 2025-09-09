@@ -1,49 +1,88 @@
 {% load static %}
 <!doctype html>
-
 <html lang="es">
-    <head>
-        <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
-            <title>Publicar propiedad</title>
-            <link rel="stylesheet" href="{% static 'css/inicio.css' %}">
-        </head>
-    <body>
-        <header class="header">
-            <div class="nav-container">
-                <div class="logo">BodegasChile</div>
-                <nav class="nav-buttons">
-                    <a href="{% url 'inicio' %}" class="nav-btn">Inicio</a>
-                    <a href="{% url 'acceso' %}" class="nav-btn">Acceder</a>
-                    <a href="{% url 'ayuda' %}" class="nav-btn">Ayuda</a>
-                    <a href="{% url 'publicar' %}" class="nav-btn">Publicar propiedad</a> 
-                </nav>
-            </div>
-        </header>
-        <main class="main-content">
-            <h1 class="section-title">Publicar propiedad</h1>
-                <form id="form-prop" enctype="multipart/form-data">
-                    {% csrf_token %}
-                        <input type="file" name="foto" id="foto" accept="image/*" required>
-                        <input type="number" name="precio" id="precio" min="0" required>
-                    <select name="comuna" id="comuna" required>
-                        <option value="" disabled selected>Selecciona</option>
-                        <!-- Los valores deben coincidir EXACTO con el modelo (choices) -->
-                        <option value="Santiago">Santiago</option>
-                        <option value="Providencia">Providencia</option>
-                        <option value="Las Condes">Las Condes</option>
-                        <option value="Ñuñoa">Ñuñoa</option>
-                        <option value="Vitacura">Vitacura</option>
-                        <option value="Lo Barnechea">Lo Barnechea</option>
-                        <option value="La Florida">La Florida</option>
-                        <option value="Puente Alto">Puente Alto</option>
-                        <option value="Maipú">Maipú</option>
-                        <option value="San Miguel">San Miguel</option>
-                        <option value="Recoleta">Recoleta</option>
-                        <option value="Independencia">Independencia</option>
-                    </select>
-                    <button type="submit">Guardar</button>
-                </form>
-                <div id="msg"></div>
-        </main>
-  <script src="{% static 'js/publicar.js' %}"></script>
-</body></html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Publicar propiedad</title>
+  <link rel="stylesheet" href="{% static 'css/inicio.css' %}">
+</head>
+<body>
+  <header class="header">
+    <div class="nav-container">
+      <div class="logo">BodegasChile</div>
+      <nav class="nav-buttons">
+        <a href="{% url 'inicio' %}" class="nav-btn">Inicio</a>
+        <a href="{% url 'acceso' %}" class="nav-btn">Acceder</a>
+        <a href="{% url 'ayuda' %}" class="nav-btn">Ayuda</a>
+        <a href="{% url 'publicar' %}" class="nav-btn">Publicar propiedad</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="main-content" style="max-width:720px;margin:0 auto;">
+    <h1 class="section-title">Publicar propiedad</h1>
+
+    <form id="form-prop"
+      class="property-form"
+      enctype="multipart/form-data"
+      data-endpoint="{% url 'propiedad-list' %}"
+      style="background:#2a2a2a;border:1px solid #444;border-radius:10px;padding:1.5rem;max-width:720px;margin:0 auto;">
+      {% csrf_token %}
+
+        <label class="field" style="display:block;margin-bottom:1rem;">
+          <span style="display:block;color:#ccc;margin-bottom:.4rem;">Foto</span>
+          <input type="file" name="foto" id="foto" accept="image/*" required class="search-input">
+        </label>
+
+        <label class="field" style="display:block;margin-bottom:1rem;">
+          <span style="display:block;color:#ccc;margin-bottom:.4rem;">Precio</span>
+          <input type="number" name="precio" id="precio" min="0" step="1000" placeholder="Ej: 250000000" required class="search-input">
+          <small id="precio-preview" style="color:#999"></small>
+        </label>
+
+        <label class="field" style="display:block;margin-bottom:1rem;">
+          <span style="display:block;color:#ccc;margin-bottom:.4rem;">Comuna (RM)</span>
+          <select name="comuna" id="comuna" required class="search-select">
+            <option value="" disabled selected>Selecciona</option>
+            <option>Santiago</option>
+            <option>Providencia</option>
+            <option>Las Condes</option>
+            <option>Ñuñoa</option>
+            <option>Vitacura</option>
+            <option>Lo Barnechea</option>
+            <option>La Florida</option>
+            <option>Puente Alto</option>
+            <option>Maipú</option>
+            <option>San Miguel</option>
+            <option>Recoleta</option>
+            <option>Independencia</option>
+          </select>
+        </label>
+
+        <!-- NUEVO: vistas -->
+        <label class="field" style="display:block;margin-bottom:1rem;">
+          <span style="display:block;color:#ccc;margin-bottom:.4rem;">Vistas (opcional)</span>
+          <input type="number" name="vistas" id="vistas" min="0" step="1" value="0" class="search-input">
+          <small style="color:#999">Pon un número alto si quieres que aparezca en “Mayores vistas”.</small>
+        </label>
+
+        <div class="actions" style="display:flex;gap:.75rem;justify-content:flex-end;">
+          <button type="submit" class="search-btn" id="btn-guardar">Guardar</button>
+        </div>
+
+        <div id="msg" class="form-msg" style="margin-top:.75rem;color:#ccc;min-height:1.25rem;"></div>
+        <img id="preview-guardado" alt="" style="display:none;max-width:420px;margin-top:.5rem;border-radius:8px;">
+    </form>
+
+    
+
+    <hr style="border-color:#444;margin:2rem 0 1rem;">
+    <!-- Mantengo este botón tal cual me pediste -->
+    
+  </main>
+
+  <!-- Usa el JS externo; quité el script inline para evitar duplicar manejadores -->
+  <script src="{% static 'js/publicar.js' %}?v=2" defer></script>
+</body>
+</html>

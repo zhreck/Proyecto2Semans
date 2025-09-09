@@ -1,57 +1,116 @@
 {% load static %}
-
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
-    <head>
-    <meta charset="UTF-8">
-    <title>Registro</title>
-    <link rel="stylesheet" href="{% static 'css/registro.css' %}">
-    </head>
-    <body>
+<head>
+  <meta charset="utf-8">
+  <title>Registro</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="stylesheet" href="{% static 'css/inicio.css' %}">
+</head>
+<body>
+  <!-- Header -->
   <header class="header">
-            <div class="nav-container">
-                <div class="logo">BodegasChile</div>
-                <nav class="nav-buttons">
-                    <a href="{% url 'inicio' %}" class="nav-btn">Inicio</a>
-                    <a href="{% url 'acceso' %}" class="nav-btn">Acceder</a>
-                    <a href="{% url 'ayuda' %}" class="nav-btn">Ayuda</a>
-                    <a href="#" class="nav-btn">Publicar propiedad</a>
-                </nav>
+    <div class="nav-container">
+      <div class="logo">BodegasChile</div>
+      <nav class="nav-buttons">
+        <a href="{% url 'inicio' %}" class="nav-btn">Inicio</a>
+        <a href="{% url 'acceso' %}" class="nav-btn">Acceder</a>
+        <a href="{% url 'ayuda' %}" class="nav-btn">Ayuda</a>
+        <a href="{% url 'publicar' %}" class="nav-btn">Publicar propiedad</a>
+      </nav>
+    </div>
+  </header>
 
-            </div>
-        </header>
+  <main class="main-content" style="max-width:680px;margin:0 auto;">
+    <h1 class="section-title">Crear cuenta</h1>
 
-  <main class="main-content">
-    <h1 class="section-title">Crear Cuenta</h1>
-
-    <form method="post" class="form">
-      {% csrf_token %}
-      {{ form.as_p }}
-
-      <button type="submit" class="btn">Registrarse</button>
-    </form>
-
-    {% if form.errors %}
-      <div class="form-errors">
-        <p>Corrige los siguientes errores:</p>
-        <ul>
-          {% for field in form %}
-            {% for error in field.errors %}
-              <li><strong>{{ field.label }}:</strong> {{ error }}</li>
-            {% endfor %}
-          {% endfor %}
-          {% for error in form.non_field_errors %}
-            <li>{{ error }}</li>
-          {% endfor %}
-        </ul>
+    {% if messages %}
+      <div style="margin-bottom:1rem;">
+        {% for message in messages %}
+          <div style="background:#223; border:1px solid #345; color:#cfe; padding:.75rem 1rem; border-radius:8px; margin:.5rem 0;">
+            {{ message }}
+          </div>
+        {% endfor %}
       </div>
     {% endif %}
+
+    <form method="post" novalidate
+          style="background:#2a2a2a;border:1px solid #444;border-radius:12px;padding:1.5rem;">
+      {% csrf_token %}
+
+      {% if form.non_field_errors %}
+        <div style="background:#442; border:1px solid #744; color:#fee; padding:.75rem 1rem; border-radius:8px; margin-bottom:1rem;">
+          {{ form.non_field_errors }}
+        </div>
+      {% endif %}
+
+      <!-- Usuario -->
+      <div class="field" style="margin-bottom:1rem;">
+        <label style="display:block;color:#ccc;margin-bottom:.4rem;">Usuario</label>
+        {{ form.username }}
+        {{ form.username.errors }}
+      </div>
+
+      <!-- Nombre / Apellido -->
+      <div class="field" style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1rem;">
+        <div>
+          <label style="display:block;color:#ccc;margin-bottom:.4rem;">Nombre</label>
+          {{ form.name }}
+          {{ form.name.errors }}
+        </div>
+        <div>
+          <label style="display:block;color:#ccc;margin-bottom:.4rem;">Apellido</label>
+          {{ form.nameA }}
+          {{ form.nameA.errors }}
+        </div>
+      </div>
+
+      <!-- Email -->
+      <div class="field" style="margin-bottom:1rem;">
+        <label style="display:block;color:#ccc;margin-bottom:.4rem;">Correo electrónico</label>
+        {{ form.email }}
+        {{ form.email.errors }}
+      </div>
+
+      <!-- Password 1 -->
+      <div class="field" style="margin-bottom:1rem; position:relative;">
+        <label style="display:block;color:#ccc;margin-bottom:.4rem;">Contraseña</label>
+        {{ form.password1 }}
+        <button type="button" id="toggle-p1" class="promo-btn"
+                style="position:absolute; right:8px; top:34px; padding:.35rem .6rem;">Ver</button>
+        {{ form.password1.errors }}
+        <div id="pw-strength" style="height:6px;background:#333;border-radius:4px;margin-top:.5rem;overflow:hidden;">
+          <div id="pw-bar" style="height:100%;width:0;background:#c44;transition:width .2s ease;"></div>
+        </div>
+        <small id="pw-text" style="color:#aaa;"></small>
+      </div>
+
+      <!-- Password 2 -->
+      <div class="field" style="margin-bottom:1rem; position:relative;">
+        <label style="display:block;color:#ccc;margin-bottom:.4rem;">Confirmar contraseña</label>
+        {{ form.password2 }}
+        <button type="button" id="toggle-p2" class="promo-btn"
+                style="position:absolute; right:8px; top:34px; padding:.35rem .6rem;">Ver</button>
+        {{ form.password2.errors }}
+        <small id="pw-match" style="color:#aaa;"></small>
+      </div>
+
+      <!-- Términos -->
+      <div class="field" style="margin:.75rem 0 1rem; display:flex; gap:.6rem; align-items:center;">
+        {{ form.terms }}
+        <label for="{{ form.terms.id_for_label }}" style="color:#ccc; user-select:none;">
+          Acepto los términos y condiciones
+        </label>
+        {{ form.terms.errors }}
+      </div>
+
+      <div style="display:flex; gap:.75rem; justify-content:flex-end; align-items:center;">
+        <a href="{% url 'acceso' %}" style="color:#9fc0ff; text-decoration:none;">¿Ya tienes cuenta? Inicia sesión</a>
+        <button class="search-btn" id="btn-registro" type="submit">Crear cuenta</button>
+      </div>
+    </form>
   </main>
 
-  <footer class="footer">
-    <p>&copy; 2024 BodegasChile. Todos los derechos reservados.</p>
-  </footer>
-    </body>
-
-    <script src="{% static 'js/inicio.js' %}"></script>
+  <script src="{% static 'js/registro.js' %}?v=1" defer></script>
+</body>
 </html>

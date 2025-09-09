@@ -10,6 +10,7 @@ class Archivo(models.Model):
     def __str__(self):
         return self.nombre
     
+# models.py
 
 COMUNAS_RM = [
     ("Santiago", "Santiago"),
@@ -24,13 +25,13 @@ COMUNAS_RM = [
     ("San Miguel", "San Miguel"),
     ("Recoleta", "Recoleta"),
     ("Independencia", "Independencia"),
-    # agrega las que necesites
 ]
 
 class Propiedad(models.Model):
-    foto = models.ImageField(upload_to="storage/propiedades/")
-    precio = models.PositiveIntegerField()
-    comuna = models.CharField(max_length=40, choices=COMUNAS_RM)
+    foto       = models.ImageField(upload_to="storage/propiedades/")
+    precio     = models.PositiveIntegerField()
+    comuna     = models.CharField(max_length=40, choices=COMUNAS_RM)
+    vistas     = models.PositiveIntegerField(default=0, db_index=True)  # 👈 nuevo
     created_at = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):

@@ -9,5 +9,5 @@ class ArchivoSerializer(serializers.ModelSerializer):
 
 class PropiedadSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Propiedad
-        fields = ["id", "foto", "precio", "comuna", "created_at"]
+        model  = Propiedad
+        fields = ["id", "foto", "precio", "comuna", "vistas", "created_at"]

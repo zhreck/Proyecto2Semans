@@ -1,74 +1,119 @@
-// static/js/publicar.js
 (function () {
   "use strict";
-  const onReady = (fn) =>
+
+  // Ejecuta cuando el DOM está listo
+  const ready = (fn) =>
     document.readyState !== "loading"
       ? fn()
       : document.addEventListener("DOMContentLoaded", fn);
 
-  onReady(() => {
-    console.log("[publicar.js] cargado");
-    const form = document.getElementById("form-prop");
-    const msg  = document.getElementById("msg");
-    if (!form || !msg) {
-      console.warn("[publicar.js] Falta #form-prop o #msg");
-      return;
+  // Formateo rápido de CLP
+  function formatMoney(n) {
+    if (!n && n !== 0) return "";
+    try {
+      return new Intl.NumberFormat("es-CL").format(Number(n));
+    } catch {
+      return String(n);
+    }
+  }
+
+  ready(() => {
+    const form    = document.getElementById("form-prop");
+    if (!form) return;
+
+    const msg     = document.getElementById("msg");
+    const btn     = document.getElementById("btn-guardar");
+    const inputFt = document.getElementById("foto");
+    const inputPx = document.getElementById("precio");
+    const pvSpan  = document.getElementById("precio-preview");
+    const preview = document.getElementById("preview-guardado");
+
+    // Preview del precio en CLP
+    if (inputPx && pvSpan) {
+      inputPx.addEventListener("input", () => {
+        pvSpan.textContent = inputPx.value ? `≈ $${formatMoney(inputPx.value)}` : "";
+      });
     }
 
-    const endpoint =
-      form.dataset.endpoint && form.dataset.endpoint.trim()
-        ? form.dataset.endpoint.trim()
-        : "/api/propiedades/"; // fallback
+    // Preview local de la imagen seleccionada
+    if (inputFt && preview) {
+      inputFt.addEventListener("change", () => {
+        if (inputFt.files && inputFt.files[0]) {
+          const url = URL.createObjectURL(inputFt.files[0]);
+          preview.src = url;
+          preview.style.display = "block";
+        } else {
+          preview.removeAttribute("src");
+          preview.style.display = "none";
+        }
+      });
+    }
 
-    const getCSRF = () =>
-      (form.querySelector('input[name="csrfmiddlewaretoken"]') || {}).value || "";
-
+    // Envío del formulario a DRF
     form.addEventListener("submit", async (e) => {
       e.preventDefault();
-      msg.textContent = "Guardando…";
+      if (msg) { msg.textContent = ""; msg.style.color = "#ccc"; }
+
+      // Validaciones básicas
+      if (!inputFt || !inputFt.files || !inputFt.files[0]) {
+        if (msg) msg.textContent = "Selecciona una foto.";
+        return;
+      }
+      if (!inputPx || !inputPx.value) {
+        if (msg) msg.textContent = "Ingresa el precio.";
+        return;
+      }
 
       const fd = new FormData(form);
+      // Asegurar campo vistas por si no lo llenan
+      if (!fd.get("vistas")) fd.set("vistas", "0");
+
+      const csrf = form.querySelector('[name=csrfmiddlewaretoken]')?.value || "";
+      const url  = form.dataset.endpoint; // {% url 'propiedad-list' %}
+
+      if (btn) { btn.disabled = true; btn.dataset.oldText = btn.textContent; btn.textContent = "Guardando…"; }
+
+      let resp, data;
       try {
-        const res = await fetch(endpoint, {
+        resp = await fetch(url, {
           method: "POST",
-          headers: { "X-CSRFToken": getCSRF() }, // NO pongas Content-Type manual
-          body: fd,
+          headers: { "X-CSRFToken": csrf },
+          body: fd
         });
-
-        if (!res.ok) {
-          const body = await res.text().catch(() => "");
-          console.error("[publicar.js] Error API", res.status, body);
-          msg.textContent =
-            res.status === 403
-              ? "CSRF inválido. Refresca e intenta de nuevo."
-              : res.status === 400
-              ? "Datos inválidos (revisa comuna/precio/foto)."
-              : "Error al guardar (" + res.status + ").";
-          return;
-        }
-
-        const data = await res.json();
-        console.log("[publicar.js] OK", data);
-        msg.textContent = "Guardado ✅ ID " + (data.id ?? "?");
-
-        // Si la API devolvió la URL de la foto, muéstrala debajo:
-        if (data.foto) {
-          let prev = document.getElementById("preview-guardado");
-          if (!prev) {
-            prev = document.createElement("img");
-            prev.id = "preview-guardado";
-            prev.style.display = "block";
-            prev.style.maxWidth = "420px";
-            prev.style.marginTop = "12px";
-            msg.after(prev);
-          }
-          prev.src = data.foto; // absoluto si el backend manda request en contexto
-        }
-
-        form.reset();
       } catch (err) {
-        console.error(err);
-        msg.textContent = "Error de red.";
+        if (btn) { btn.disabled = false; btn.textContent = btn.dataset.oldText || "Guardar"; }
+        if (msg) { msg.textContent = "Error de red. Revisa tu conexión."; msg.style.color = "#f88"; }
+        return;
+      }
+
+      if (btn) { btn.disabled = false; btn.textContent = btn.dataset.oldText || "Guardar"; }
+
+      // Mostrar resultado
+      try { data = await resp.json(); } catch { data = null; }
+
+      if (resp.ok) {
+        if (msg) { msg.textContent = "Propiedad creada ✅"; msg.style.color = "#5bd68a"; }
+
+        // Si el backend devuelve URL absoluta de la imagen (requiere get_serializer_context en ViewSet)
+        if (data && data.foto && preview) {
+          preview.src = data.foto;
+          preview.style.display = "block";
+        }
+
+        // Reset de campos (mantiene preview si quieres dejarla)
+        form.reset();
+        if (pvSpan) pvSpan.textContent = "";
+      } else {
+        let detalle = "Error " + resp.status;
+        if (data && typeof data === "object") {
+          const partes = [];
+          for (const k of Object.keys(data)) {
+            const val = Array.isArray(data[k]) ? data[k].join(", ") : data[k];
+            partes.push(`${k}: ${val}`);
+          }
+          if (partes.length) detalle = partes.join(" | ");
+        }
+        if (msg) { msg.textContent = detalle; msg.style.color = "#f88"; }
       }
     });
   });

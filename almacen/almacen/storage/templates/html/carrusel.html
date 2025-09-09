@@ -1,0 +1,70 @@
+{% load static %}
+        <!doctype html><html lang="es"><head>
+            <meta charset="utf-8"><title>Gestor de Carrusel</title>
+        <link rel="stylesheet" href="{% static 'css/inicio.css' %}">
+    </head>
+    <header class="header">
+      <div class="nav-container">
+        <div class="logo">BodegasChile</div>
+        <nav class="nav-buttons">
+          <a href="{% url 'inicio' %}" class="nav-btn">Inicio</a>
+          <a href="{% url 'acceso' %}" class="nav-btn">Acceder</a>
+          <a href="{% url 'ayuda' %}" class="nav-btn">Ayuda</a>
+          <a href="{% url 'publicar' %}" class="nav-btn">Publicar propiedad</a> 
+        </nav>
+      </div>
+    </header>
+    <body class="main-content" style="max-width:900px;margin:2rem auto;">
+        <h1 class="section-title">Subir imágenes del carrusel</h1>
+
+            <form id="form-arch" enctype="multipart/form-data"
+                    data-endpoint="{% url 'archivo-list' %}">
+                {% csrf_token %}
+                <input type="file" name="archivo" accept="image/*" required>
+                <input type="text"  name="nombre" placeholder="Nombre (opcional)">
+                <button class="search-btn">Subir</button>
+            </form>
+        <div id="msg-arch" style="margin:.75rem 0;"></div>
+
+        <hr style="border-color:#444;margin:2rem 0;">
+        <h2 class="section-title">Imágenes actuales</h2>
+        <div id="grid" class="property-grid"></div>
+
+    <script>
+        const grid = document.getElementById('grid');
+        const base = "{% url 'archivo-list' %}"; // /api/archivos/
+
+        async function listar(){
+        const r = await fetch(base);
+        const data = await r.json();
+        grid.innerHTML = (data.results || data).map(x => `
+            <div class="property-card">
+            <div class="property-image"><img src="${x.archivo}" alt="${x.nombre||''}"></div>
+            <div class="property-info">
+                <div class="property-price">${x.nombre||'Imagen'}</div>
+                <button data-id="${x.id}" class="search-btn" style="background:#c44;">Eliminar</button>
+            </div>
+            </div>`).join('');
+    }
+        document.addEventListener('click', async e=>{
+        if(e.target.matches('button[data-id]')){
+            const id = e.target.dataset.id;
+            if(confirm('¿Eliminar imagen del carrusel?')){
+            const r = await fetch(base+id+'/', {method:'DELETE'});
+            await listar();
+            }
+        }
+        });
+
+        document.getElementById('form-arch').addEventListener('submit', async (e)=>{
+        e.preventDefault();
+        const fd   = new FormData(e.target);
+        const csrf = e.target.querySelector('[name=csrfmiddlewaretoken]').value;
+        const url  = e.target.dataset.endpoint;
+        const r    = await fetch(url, { method:'POST', headers:{'X-CSRFToken':csrf}, body:fd });
+        document.getElementById('msg-arch').textContent = r.ok ? 'Imagen subida ✅' : 'Error '+r.status;
+        if(r.ok){ e.target.reset(); listar(); }
+        });
+        listar();
+    </script>
+</body></html>
