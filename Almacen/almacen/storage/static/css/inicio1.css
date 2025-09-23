@@ -1,0 +1,170 @@
+/* =========================================================
+   Reset + variables
+========================================================= */
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --azul:#0367A6;
+  --beige-oscuro:#A68160;
+  --beige-claro:#D9B596;
+  --rojo:#BF2E21;
+  --vino:#590202;
+  --blanco:#ffffff;
+  --gris-claro:#f8f9fa;
+  --gris-oscuro:#333333;
+  --gris-medio:#666666;
+  --line:#e7eef6;
+  --card:#ffffff;
+  --muted:#6b7789;
+  --radius:14px;
+  --shadow:0 10px 28px rgba(13,38,76,.12);
+}
+html,body{height:100%}
+body{
+  font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
+  line-height:1.6;
+  color:var(--gris-oscuro);
+  background:var(--gris-claro);
+}
+
+/* =========================================================
+   Header (blanco)
+========================================================= */
+.header{
+  position:sticky;top:0;z-index:50;
+  background:var(--blanco);
+  border-bottom:1px solid var(--line);
+  box-shadow:0 2px 10px rgba(0,0,0,.06);
+}
+.nav-container{
+  max-width:1200px;margin:0 auto;padding:1rem 2rem;
+  display:flex;justify-content:space-between;align-items:center;
+}
+.logo{font-size:1.8rem;font-weight:800;color:var(--azul);text-decoration:none}
+.nav-buttons{display:flex;gap:.6rem}
+.nav-btn{
+  text-decoration:none;color:var(--gris-oscuro);
+  padding:.65rem 1.1rem;border-radius:10px;border:1px solid var(--line);
+  background:#fff;transition:.15s transform,.2s box-shadow,.2s border-color;
+}
+.nav-btn:hover{transform:translateY(-1px);border-color:#d8e5f2;box-shadow:0 4px 12px rgba(13,38,76,.08)}
+
+/* =========================================================
+   Hero + carrusel (marco claro)
+========================================================= */
+.hero{padding:1.2rem 0 4rem;display:flex;justify-content:center}
+.hero-content{width:min(1100px,92vw)}
+.carousel{
+  position:relative;overflow:hidden;border-radius:var(--radius);
+  background:var(--card);border:1px solid var(--line);box-shadow:var(--shadow)
+}
+.carousel-track{display:flex;transition:transform .45s ease}
+.carousel-slide{flex:0 0 100%;aspect-ratio:20/8;min-height:360px;background:#f3f7fb}
+.carousel-slide img{width:100%;height:100%;object-fit:cover;display:block}
+.carousel-btn{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(255,255,255,.95);color:#173a5a;border:1px solid #dfe9f3;
+  border-radius:10px;padding:8px 12px;font-size:18px;cursor:pointer;
+  box-shadow:0 8px 18px rgba(16,50,78,.12);
+}
+.carousel-btn:hover{filter:brightness(1.03)}
+.carousel-btn.prev{left:12px}.carousel-btn.next{right:12px}
+
+/* =========================================================
+   Buscador (card blanca “glass”)
+========================================================= */
+.search-section{
+  width:min(860px,92vw);margin:-32px auto 0;padding:1.25rem;
+  background:#fff;border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);
+  position:relative;z-index:5;
+}
+.search-controls{display:flex;gap:.9rem;flex-wrap:wrap;align-items:end}
+.search-group{flex:1;min-width:180px}
+.search-group label{display:block;color:#738198;font-size:.9rem;margin:0 0 .4rem}
+.search-input,.search-select{
+  width:100%;padding:.75rem .9rem;font-size:1rem;color:var(--gris-oscuro);
+  background:#fff;border:1px solid var(--line);border-radius:10px;
+  transition:border-color .2s ease, box-shadow .2s ease;
+}
+.search-input:focus,.search-select:focus{
+  outline:none;border-color:#bcd6ee;box-shadow:0 0 0 4px rgba(3,103,166,.15)
+}
+.search-btn{
+  padding:.8rem 1.4rem;border:0;border-radius:12px;color:#fff;cursor:pointer;
+  background:linear-gradient(45deg,var(--azul),#2b7ed1);
+  box-shadow:0 10px 18px rgba(3,103,166,.25);transition:transform .12s ease,filter .15s ease
+}
+.search-btn:hover{transform:translateY(-1px);filter:brightness(1.04)}
+.search-btn.map-btn{background:linear-gradient(45deg,#58aef3,#2a78c3)}
+
+/* =========================================================
+   Contenido
+========================================================= */
+.main-content{width:min(1200px,94vw);margin:0 auto;padding:2rem 0 4rem}
+.section-title{
+  font-size:2.1rem;text-align:center;color:#143d62;margin:1.8rem 0 1.2rem;
+}
+.description{max-width:800px;margin:0 auto 2.4rem;text-align:center;color:#5d6e82}
+
+/* =========================================================
+   Cards (blancas)
+========================================================= */
+.property-grid{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(270px,1fr));
+  gap:1.2rem;margin-bottom:3rem
+}
+.property-card{
+  background:var(--card);border:1px solid var(--line);border-radius:14px;
+  overflow:hidden;box-shadow:var(--shadow);
+  transition:transform .18s ease, box-shadow .22s ease
+}
+.property-card:hover{transform:translateY(-3px);box-shadow:0 16px 36px rgba(17,41,82,.14)}
+.property-image{position:relative;height:clamp(180px,24vw,240px);background:#f4f7fb}
+.property-image img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.property-info{padding:1rem 1.1rem;background:#fff;border-top:1px solid var(--line)}
+.property-price{color:#0d5fa1;font-weight:800;font-size:1.05rem;margin-bottom:.35rem}
+.property-location{color:#4b5d70;font-size:.95rem}
+
+/* Badge de vistas (claro) */
+.badge-views{
+  position:absolute;top:10px;right:10px;display:inline-flex;align-items:center;gap:.35rem;
+  padding:.28rem .55rem;font-size:.82rem;color:#10324e;background:rgba(255,255,255,.95);
+  border:1px solid #dde7f1;border-radius:999px;box-shadow:0 8px 20px rgba(16,50,78,.12)
+}
+
+/* “Mayores vistas” con sutil panel claro */
+.section--alt{
+  background:#fff;border:1px solid var(--line);border-radius:16px;padding:1.25rem 1.25rem 1.6rem;
+  box-shadow:0 14px 34px rgba(15,45,88,.10)
+}
+.section--alt .section-title{color:#0f3d62}
+
+/* =========================================================
+   Ciudades y footer
+========================================================= */
+.cities-section h3{color:#123a5c;margin-bottom:.8rem}
+.cities-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1rem}
+.city-card{height:120px;border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+.city-image{
+  width:100%;height:100%;
+  background:linear-gradient(45deg,#3a9cf5,#2d6fcb);
+  display:flex;align-items:center;justify-content:center;color:#fff;font-weight:700
+}
+
+.footer{
+  background:#fff;border-top:1px solid var(--line);text-align:center;color:#55677e;
+  padding:2rem 1rem;box-shadow:0 -2px 10px rgba(0,0,0,.05)
+}
+
+/* =========================================================
+   Responsive
+========================================================= */
+@media (max-width:1024px){
+  .hero-content,.carousel{width:95vw}
+}
+@media (max-width:768px){
+  .carousel-slide{aspect-ratio:4/3;min-height:260px}
+  .nav-buttons{flex-wrap:wrap;gap:.5rem}
+  .nav-btn{padding:.55rem .9rem;font-size:.92rem}
+  .search-controls{flex-direction:column}
+  .search-group{width:100%}
+}
